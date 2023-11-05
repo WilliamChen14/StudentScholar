@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css';
 import Classes from "./Classes";
 import Home from ".";
+import FooterComponent from './components/FooterComponent';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route path="/Classes" element={<Classes />} />
         </Routes>
+        <FooterComponent />
       </Router>
     </div>
   );
