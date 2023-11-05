@@ -53,10 +53,10 @@ const Home = () => {
                     <Card.Img src={BillPhoto}/>
                   </div>
                   <div>
-                    <p1>Bill Chen</p1>
+                    <p1 className='team-member-name'>Bill Chen</p1>
                   </div>
                   <div>
-                    <p1>Team Member</p1>
+                    <p1 className='team-member-role'>Team Member</p1>
                   </div>
                 </Col>
                 <Col>

@@ -53,3 +53,15 @@
 .team-member-photo {
   padding-right: 10px;
 }
+
+.team-member-name {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: large;
+  font-weight: normal;
+}
+
+.team-member-role {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: small;
+  font-weight: normal;
+}
