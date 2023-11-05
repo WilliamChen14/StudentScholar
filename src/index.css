@@ -2,3 +2,54 @@
   height: 100%;
   width: 100%;
 }
+
+.body {
+  padding-top: 25px;
+}
+
+.row-container {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.about-us-container {
+  border-radius: 2px;
+  background: #d9d9d9;
+  padding: 20px;
+  text-align: left;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.about-us-header {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: xx-large;
+  font-weight: normal;
+}
+
+.update-date {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: small;
+  color: gray;
+}
+
+.meet-the-team-container {
+  border-radius: 2px;
+  background: #d9d9d9;
+  padding: 20px;
+  text-align: left;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.meet-the-team-header {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: xx-large;
+  font-weight: normal;
+}
+
+.team-member-card {
+  padding: 20px;
+}
+
+.team-member-photo {
+  padding-right: 10px;
+}
