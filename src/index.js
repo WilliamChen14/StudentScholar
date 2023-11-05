@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import FrontPagePhoto from './assets/FrontPageImage.jpeg';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -12,7 +13,7 @@ root.render(
 const Home = () => {
   return (
     <div>
-      <h1>Home</h1>
+      <img src={FrontPagePhoto} className='image'></img>
     </div>
   );
 };
