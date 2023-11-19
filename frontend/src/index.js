@@ -13,6 +13,8 @@ import Card from 'react-bootstrap/Card';
 import BillPhoto from './assets/BillPhoto.png'
 import { CardBody } from 'react-bootstrap';
 
+import CreateUser from './components/CreateUser';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <App />
@@ -24,6 +26,7 @@ const Home = () => {
     <div>
       <img src={FrontPagePhoto} className='image'></img>
     </div>
+    <CreateUser />
     <Container className='body'>
       <Row className='row-container'>
         <Col xs={7} className='about-us-container'>

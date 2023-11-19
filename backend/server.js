@@ -2,9 +2,15 @@ const express = require("express");
 const mongoose = require("mongoose");
 const User = require("./models/user");
 
+const cors = require('cors');
+
 
 
 const app = express();
+
+app.use(cors({ origin: true, credentials: true }));
+
+app.use(express.json({ extended: false }));
 
 
 
@@ -52,6 +58,16 @@ app.get('/all-users', (req,res)=>{
 
 app.get('/single-user', (req,res)=>{
     User.findById('6559222ed0daf78b436c442c')
+        .then((result) =>{
+            res.send(result);
+        })
+        .catch((err) =>{
+            console.log(err);
+        });
+})
+
+app.post('/add-user', (req,res)=>{
+    User.create(req.body)
         .then((result) =>{
             res.send(result);
         })
