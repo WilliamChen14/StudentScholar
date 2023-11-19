@@ -8,7 +8,7 @@ const app = express();
 
 
 
-const uri = "mongodb+srv://billchen:billchen1@studentscholar.0gb3r1q.mongodb.net/StudentScholar?retryWrites=true&w=majority";
+const uri = "mongodb+srv://philiphuang:thunderstorm@studentscholar.0gb3r1q.mongodb.net/StudentScholar?retryWrites=true&w=majority";
 
 async function connect(){
     try {
