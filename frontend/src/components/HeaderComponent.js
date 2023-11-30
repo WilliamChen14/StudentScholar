@@ -7,6 +7,8 @@ import Navbar from "react-bootstrap/Navbar";
 
 import { GoogleLogin } from '@react-oauth/google';
 
+
+
 function HeaderComponent() {
   const responseMessage = (response) => {
     console.log(response);
@@ -31,6 +33,8 @@ function HeaderComponent() {
     return tempHref;
   };
 
+
+
   return (
     <>
       <Navbar expand="lg" className="bg-body-tertiary">
@@ -47,6 +51,14 @@ function HeaderComponent() {
                   {item}
                 </Nav.Link>
               ))}
+              <Nav.Link
+                  href={getHref(item)}
+                  className="p-2 "
+                  key={item}
+                  onClick={handleClick}
+                >
+                  {item}
+                </Nav.Link>
               <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
             </Nav>
           </Navbar.Collapse>

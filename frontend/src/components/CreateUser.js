@@ -129,5 +129,5 @@ const CreateUser = (props) => {
         </div>
     );
 };
-  
+
 export default CreateUser;
