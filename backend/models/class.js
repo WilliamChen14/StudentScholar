@@ -11,7 +11,7 @@ const ClassSchema = new Schema({
         required: true
     },
     notes: {
-        type: String,
+        type: [String],
         required: true
         // for now, let's have notes be an array of strings
         // This means that the conversation of notes will be like a group chat (without the name of the user posted or the date posted)
