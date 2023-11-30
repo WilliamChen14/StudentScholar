@@ -5,7 +5,16 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
+import { GoogleLogin } from '@react-oauth/google';
+
 function HeaderComponent() {
+  const responseMessage = (response) => {
+    console.log(response);
+  };
+  const errorMessage = (error) => {
+    console.log(error);
+  };
+
   let items = ["Home", "Classes", "Files", "Profile"];
 
   const getMessage = () => {
@@ -38,6 +47,7 @@ function HeaderComponent() {
                   {item}
                 </Nav.Link>
               ))}
+              <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
             </Nav>
           </Navbar.Collapse>
         </Container>

@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const User = require("./models/user");
+const File = require("./models/file");
 
 const cors = require('cors');
 
@@ -72,6 +73,16 @@ app.post('/add-user', (req,res)=>{
             res.send(result);
         })
         .catch((err) =>{
+            console.log(err);
+        });
+})
+
+app.post('/add-file', (req,res)=>{
+    File.create(req.body)
+        .then((result) =>{
+            res.send(result);
+        })
+        .catch((err)=>{
             console.log(err);
         });
 })

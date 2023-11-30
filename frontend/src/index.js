@@ -15,9 +15,16 @@ import { CardBody } from 'react-bootstrap';
 
 import CreateUser from './components/CreateUser';
 
+import { GoogleOAuthProvider } from '@react-oauth/google';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <App />
+  <GoogleOAuthProvider clientId="216683383933-4se13b0bgveauds2s6hfdql2jkp9fark.apps.googleusercontent.com">
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </GoogleOAuthProvider>,
+  document.getElementById('root')
 );
 
 const Home = () => {
