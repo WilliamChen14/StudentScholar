@@ -7,7 +7,11 @@ import Home from ".";
 import FooterComponent from './components/FooterComponent';
 
 
+
+
 function App() {
+
+  
   return (
     <div className="App">
       <Router>
