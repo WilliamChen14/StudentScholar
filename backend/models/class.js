@@ -1,20 +1,32 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema;
+const File = require("./file.js")
 
-const ClassSchema = new Schema({
-    name: {
+const classSchema = new Schema({
+    className: {
         type: String,
         required: true
     },
-    professor: {
+    classProf: {
         type: String,
         required: true
     },
-    notes: {
+    classConversation: {
         type: [String],
-        required: true
+        required: true // start with empty array when init
         // for now, let's have notes be an array of strings
         // This means that the conversation of notes will be like a group chat (without the name of the user posted or the date posted)
+    }, 
+    classFiles: [{
+        type: Schema.Types.ObjectId,
+        ref: 'File'
+    }],
+    classUsernames: {
+        type: [String],
+        required: true
     }
 
 }, {timestamps: true});
+
+const Class = mongoose.model('Class', classSchema);
+module.exports = Class;
