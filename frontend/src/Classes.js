@@ -1,5 +1,7 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './Classes.css';
 
-//testing
 function ClassesBox({ title, description, image, link }) {
   return (
     <div className="class-box">
@@ -16,10 +18,33 @@ function ClassesBox({ title, description, image, link }) {
 }
 
 function Classes() {
+  const classData = [
+    {
+      title: 'Class 1',
+      description: 'Description for class 1.',
+      image: 'image1.jpg',
+      link: '/home1',
+    },
+    {
+      title: 'Class 2',
+      description: 'Description for class 2.',
+      image: 'image2.jpg',
+      link: '/home2',
+    },
+    {
+      title: 'Class 3',
+      description: 'Description for class 3.',
+      image: 'image3.jpg',
+      link: '/home3',
+    },
+  ];
+
   return (
-    <>
-        <div> Hello this is classes</div>
-    </>
+    <div className="class-container">
+      {classData.map((classItem, index) => (
+        <ClassesBox key={index} {...classItem} />
+      ))}
+    </div>
   );
 }
 

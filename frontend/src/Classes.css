@@ -1,0 +1,20 @@
+.class-container {
+    display: flex;
+    justify-content: space-around; 
+  }
+  
+  .class-box {
+    border: 1px solid #ccc;
+    padding: 16px;
+    max-width: 300px;
+    margin-right: 10px; 
+  }
+  
+  .class-details {
+    margin-top: 12px;
+  }
+  
+  img {
+    max-width: 100%;
+    height: auto;
+  }
