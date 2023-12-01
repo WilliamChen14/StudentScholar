@@ -51,14 +51,6 @@ function HeaderComponent() {
                   {item}
                 </Nav.Link>
               ))}
-              <Nav.Link
-                  href={getHref(item)}
-                  className="p-2 "
-                  key={item}
-                  onClick={handleClick}
-                >
-                  {item}
-                </Nav.Link>
               <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
             </Nav>
           </Navbar.Collapse>
