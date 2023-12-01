@@ -35,6 +35,7 @@ function HeaderComponent() {
 
 
 
+
   return (
     <>
       <Navbar expand="lg" className="bg-body-tertiary">
@@ -51,14 +52,6 @@ function HeaderComponent() {
                   {item}
                 </Nav.Link>
               ))}
-              <Nav.Link
-                  href={getHref(item)}
-                  className="p-2 "
-                  key={item}
-                  onClick={handleClick}
-                >
-                  {item}
-                </Nav.Link>
               <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
             </Nav>
           </Navbar.Collapse>
