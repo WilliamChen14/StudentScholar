@@ -6,26 +6,18 @@ const File = require("./file.js")
 
 const userSchema = new Schema({
     username: {
-        type: String,
-        required: true
-    },
-    password: {
-        type: String,
-        required: true
+        type: String
     },
     name: {
-        type: String,
-        required: true
+        type: String
     },
     userClasses: [{
         type: Schema.Types.ObjectId,
-        ref: 'Class',
-        required: true
+        ref: 'Class'
     }],
     userFiles: [{
         type: Schema.Types.ObjectId,
-        ref: 'File',
-        required: true
+        ref: 'File'
     }]
 
 }, {timestamps: true}
