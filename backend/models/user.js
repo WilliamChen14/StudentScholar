@@ -1,15 +1,25 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const Class = require("./class.js")
+const File = require("./file.js")
+
 const userSchema = new Schema({
     username: {
-        type: String,
-        required: true
+        type: String
     },
-    password: {
-        type: String,
-        required: true
-    }
+    name: {
+        type: String
+    },
+    userClasses: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Class'
+    }],
+    userFiles: [{
+        type: Schema.Types.ObjectId,
+        ref: 'File'
+    }]
+
 }, {timestamps: true}
 );
 
