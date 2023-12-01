@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Classes.css';
 
+//testing
 function ClassesBox({ title, description, image, link }) {
   return (
     <div className="class-box">
