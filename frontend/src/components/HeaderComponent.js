@@ -17,7 +17,7 @@ function HeaderComponent() {
     console.log(error);
   };
 
-  let items = ["Home", "Classes", "Files", "Profile"];
+  let items = ["Home", "Classes", "Files", "Profile", "Notes"]; //remove later
 
   const getMessage = () => {
     return items.length === 0 && <p>No items Found</p>;
