@@ -86,3 +86,14 @@ app.post('/add-file', (req,res)=>{
             console.log(err);
         });
 })
+
+app.delete('/delete-users', async (req,res) =>{
+
+    try {
+        const result = await(User.deleteMany())
+        res.send(result)
+    } catch (err) {
+        console.log(err);
+    }
+
+})
