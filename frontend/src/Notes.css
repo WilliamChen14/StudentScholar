@@ -1,0 +1,14 @@
+.body {
+    margin-left: 0px;
+    margin-right: 0px;
+    display: flex;
+    flex-direction: row; /*defaulted to row i think */
+}
+.leftHalf {
+    flex-direction: column;
+    justify-content: center;
+}
+.rightHalf {
+    justify-content: space-evenly;
+    align-items: center; /* idk */
+}
