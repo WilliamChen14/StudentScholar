@@ -1,13 +1,14 @@
 .class-container {
     display: flex;
-    justify-content: space-around; 
+    flex-wrap: wrap;
+    justify-content: center;
   }
   
   .class-box {
     border: 1px solid #ccc;
     padding: 16px;
     max-width: 300px;
-    margin-right: 10px; 
+    margin: 10px;
   }
   
   .class-details {
@@ -18,3 +19,25 @@
     max-width: 100%;
     height: auto;
   }
+  
+  .search-wrapper {
+    margin-bottom: 10px;
+  }
+  
+  .input-holder {
+    position: relative;
+  }
+  
+  .search-input {
+    width: 100%;
+    padding: 8px;
+  }
+  
+  .close {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  
