@@ -7,9 +7,6 @@ function ClassesBox({ title, description, image, link }) {
       <div className="class-details">
         <h2>{title}</h2>
         <p>{description}</p>
-        <Link to={link}>
-          <button>Go to Home</button>
-        </Link>
       </div>
     </div>
   );
