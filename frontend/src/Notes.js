@@ -13,6 +13,7 @@ import Card from 'react-bootstrap/Card';
 const Notes = () => {
   //create setOnNotesPg function?
   //let onNotesPage = useState(true); //use this?
+  //blah
   const [onNotesPg, setOnNotesPg] = useState(true);
 
     return (
