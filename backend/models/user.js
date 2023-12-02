@@ -6,7 +6,8 @@ const File = require("./file.js")
 
 const userSchema = new Schema({
     username: {
-        type: String
+        type: String,
+        unique: true
     },
     name: {
         type: String
