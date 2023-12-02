@@ -1,2 +1,21 @@
+### Get new User
 GET /all-users HTTP/1.1
+Host: localhost:8000
+
+
+### Add new User
+POST /add-user HTTP/1.1
+Host: localhost:8000
+Content-Type: application/json
+
+{
+    "username": "pravir1@ucla.edu",
+    "password": "pravir1",
+    "name": "Pravir",
+    "userClasses": [],
+    "userFiles": []
+}
+
+### Delete all Users
+DELETE /delete-users HTTP/1.1
 Host: localhost:8000
