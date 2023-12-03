@@ -1,0 +1,104 @@
+.flex-container {
+    display: flex;
+}
+
+#drop-area {
+    flex: 1;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ccc;
+    width: 500px;
+    height: 400px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin-left: 250px;
+    padding: 100px 0px 100px 0px;
+}
+
+.upload-img {
+    width: 100px;
+    height: 80px;
+}
+
+#drop-area.highlight {
+    border-color: blue;
+  }
+
+.colored-paragraph {
+    color: gray;
+    text-align: center;
+}
+
+.my-files {
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px;
+    background: #ccc;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.button:hover {
+    background: #ddd;
+}
+
+#fileElem {
+    display: none;
+}
+
+.description-area {
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    width: 500px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding-top: 5px;
+    padding-bottom: 5px; 
+    border: 1px solid #ccc;
+}
+
+.class-area {
+    flex: 1; 
+    text-align: left;
+    justify-content: center;
+    width: 500px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding-top: 5px;
+    padding-bottom: 5px; 
+    border: 1px solid #ccc;
+}
+
+.description-area h2 {
+    color: #000000;
+    font-size: 15px;
+    text-align: left;
+}
+
+.class-area h2 {
+    color: #000000;
+    font-size: 15px;
+    text-align: left;
+}
+
+#description {
+    text-align: left;
+}
+
+.my-description {
+    margin-bottom: 1px; 
+}
+
+#left-side {
+    display: flex;
+    flex-direction: row;
+}
+
+#right-side {
+    display: flex;
+    flex-direction: column;
+}

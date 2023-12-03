@@ -40,26 +40,23 @@ function Profile() {
         setProfile(null);
     };
 
-    const onChange = (e) => {
-        setUser({...user, [e.target.name]: e.target.value});
-    }
-
-    const onSubmit = (e) => {
+    const checkIfThere = (e) => {
         e.preventDefault();
-
         setTempUser(tempUser => {
-            return {...tempUser, username: profile.name}
+            return {...tempUser, username: profile.email}
         });
-        
 
+        console.log(tempUser.username);
+
+        
         axios
-            .post('http://localhost:8000/add-user', tempUser)
+            .post('http://localhost:8000/loggin-user', tempUser)
             .then((res)=>{
-                
+                console.log("it worked");
             })
             .catch((err) => {
-                console.log('Error in creating a user!');
-              });
+                console.log('Error in finding a user!');
+            });
     }
 
     return (
@@ -73,7 +70,7 @@ function Profile() {
                     <br />
                     <br />
                     <button onClick={logOut}>Log out</button>
-                    <button onClick={onSubmit}>submit</button>
+                    <button onClick={checkIfThere}>check</button>
                 </div>
             ) : (
                 <button onClick={() => login()}>Sign in with Google</button>
