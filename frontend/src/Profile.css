@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+  }
+  
+  .user-info {
+    margin-right: 20px;
+  }
+  
+  .my-classes {
+    margin-left: auto;
+  }
+  
+  .my-classes-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    max-width: 300px;
+  }
+  
+  .class-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .class-list-item {
+    margin-bottom: 5px;
+  }
+  
+  .remove-button {
+    margin-left: 5px;
+  }
+  
