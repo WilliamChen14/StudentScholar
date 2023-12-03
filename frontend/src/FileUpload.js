@@ -1,3 +1,7 @@
+function handleFiles(files) {
+  
+}
+
 function FileUpload() {
     return (
       <>
