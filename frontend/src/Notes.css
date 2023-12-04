@@ -1,14 +1,61 @@
 .body {
-    margin-left: 0px;
-    margin-right: 0px;
+    margin: 20px;
+    border: 1px solid #000;
     display: flex;
-    flex-direction: row; /*defaulted to row i think */
+    height: 100vh; /* Set height to 100% of the viewport height */
+
 }
 .leftHalf {
+    display: flex;
     flex-direction: column;
-    justify-content: center;
+    flex: 5;
+    margin: 15px;
+    border: 1px solid #000000;
+    padding: 15px;
 }
 .rightHalf {
-    justify-content: space-evenly;
-    align-items: center; /* idk */
+    flex: 3;
+    margin: 15px;
+    border: 1px solid #000000;
+    padding: 15px;
+
 }
+.iFrame {
+    flex: 3;
+    border: 1px solid #000;
+    overflow: hidden;
+    background-color: #303030;
+    
+}
+.iFrame img{
+    height: 50%;
+    object-fit: contain;
+}
+.blank {
+    flex:1;
+    border: 1px solid #000;
+
+}
+.header {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #303030;
+    padding: 10px;
+    color: #fff;
+  }
+  
+  .section-switch {
+    cursor: pointer;
+    padding: 8px;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    margin-right: 10px;
+    background-color: transparent;
+    color: #fff;
+  }
+  
+  .section-switch:active {
+    background-color: #811313;
+    color: #303030;
+  }
