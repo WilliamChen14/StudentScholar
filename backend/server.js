@@ -28,6 +28,21 @@ app.listen(8000,() => {
     console.log("Server started on port 8000")
 })
 
+app.post('/loggin-user', async (req, res) => {
+    try {
+        console.log(req.body.username);
+        const tempUser = await User.findOne({username: req.body.username});
+        console.log(tempUser);
+        if(!tempUser){
+            User.create(req.body);
+        }
+        console.log("done");
+    }
+    catch(err){
+        console.log(err);
+    }
+});
+
 app.get('/add-user', (req,res) => {
     const user = new User({
         username: "bill1",
