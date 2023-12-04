@@ -24,7 +24,7 @@ function ClassCodeBox({ addClass }) {
   };
 
   return (
-    <div>
+    <div className="class-code-box">
       <label htmlFor="classCode">Enter Class Code: </label>
       <input
         type="text"
