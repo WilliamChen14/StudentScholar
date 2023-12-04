@@ -16,7 +16,7 @@ function Files() {
 
   function submitForm() {
 
-
+    
     console.log("Submitting form")
 
     const form = document.getElementById("form");
