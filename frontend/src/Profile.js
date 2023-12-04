@@ -45,13 +45,37 @@ function Profile() {
   const [userClasses, setUserClasses] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    const storedClasses = JSON.parse(localStorage.getItem('userClasses'));
+
+    if (storedUser) {
+      setUser(storedUser);
+      setIsLoggedIn(true);
+    }
+
+    if (storedClasses) {
+      setUserClasses(storedClasses);
+    }
+  }, []);
+
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => {
       setUser(codeResponse);
       setIsLoggedIn(true);
+      localStorage.setItem('user', JSON.stringify(codeResponse));
     },
     onError: (error) => console.log('Login Failed:', error),
   });
+
+  const logout = () => {
+    googleLogout();
+    setUser(null);
+    setProfile({});
+    setIsLoggedIn(false);
+    localStorage.removeItem('user');
+    localStorage.removeItem('userClasses');
+  };
 
   useEffect(() => {
     if (user) {
@@ -68,13 +92,6 @@ function Profile() {
         .catch((err) => console.log(err));
     }
   }, [user]);
-
-  const logOut = () => {
-    googleLogout();
-    setUser(null);
-    setProfile({});
-    setIsLoggedIn(false);
-  };
 
   const checkIfThere = (e) => {
     e.preventDefault();
@@ -95,13 +112,16 @@ function Profile() {
   const addClass = (newClass) => {
     if (!userClasses.includes(newClass)) {
       setUserClasses((prevClasses) => [...prevClasses, newClass]);
+      localStorage.setItem('userClasses', JSON.stringify([...userClasses, newClass]));
     } else {
       alert('Class already exists in the list.');
     }
   };
 
   const removeClass = (removedClass) => {
-    setUserClasses((prevClasses) => prevClasses.filter((cls) => cls !== removedClass));
+    const updatedClasses = userClasses.filter((cls) => cls !== removedClass);
+    setUserClasses(updatedClasses);
+    localStorage.setItem('userClasses', JSON.stringify(updatedClasses));
   };
 
   return (
@@ -114,7 +134,7 @@ function Profile() {
             <p>Name: {profile.name}</p>
             <p>Email Address: {profile.email}</p>
             <br />
-            <button onClick={logOut}>Log out</button>
+            <button onClick={logout}>Log out</button>
             <button onClick={checkIfThere}>check</button>
           </div>
         ) : (
