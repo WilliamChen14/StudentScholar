@@ -18,6 +18,7 @@ function Files() {
             <form class='my-files'>
               <img src={UploadPhoto} class='upload-img'></img>
               <p class='colored-paragraph'>Drag and drop files here</p>
+              <p class='colored-paragraph'> ⎯⎯ or ⎯⎯</p>
               <input type='file' id='fileElem' onChange='handleFiles(this.files)' />
               <label class='button' for='fileElem'>Select some files</label>
             </form>
