@@ -13,6 +13,7 @@ import Card from 'react-bootstrap/Card';
 import BillPhoto from './assets/BillPhoto.png'
 import PhilipPhoto from './assets/Philip_photo.jpg'
 import BrianPhoto from './assets/BrianPhoto.jpg'
+import PravirPhoto from './assets/PravirPhoto.jpg'
 import { CardBody } from 'react-bootstrap';
 
 import CreateUser from './components/CreateUser';
@@ -131,6 +132,28 @@ const Home = () => {
                 <Col>
                   <p1>
                   Hey! I'm Brian. I'm a third year CS student and I hope you enjoy what we have to offer here! :D
+                  </p1>
+                </Col>
+              </Row>
+
+            </Card>
+
+            <Card className='team-member-card'>
+              <Row>
+                <Col xs={4}>
+                  <div className='team-member-photo'>
+                    <Card.Img src={PravirPhoto}/>
+                  </div>
+                  <div>
+                    <p1 className='team-member-name'>Pravir Chugh</p1>
+                  </div>
+                  <div>
+                    <p1 className='team-member-role'>Team Member</p1>
+                  </div>
+                </Col>
+                <Col>
+                  <p1>
+                  Hi there! My name is Pravir Chugh, and I am a second-year Computer Science Major at UCLA. 
                   </p1>
                 </Col>
               </Row>
