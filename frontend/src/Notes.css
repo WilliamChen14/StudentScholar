@@ -5,6 +5,7 @@
     height: 100vh; /* Set height to 100% of the viewport height */
 
 }
+/* Halves */
 .leftHalf {
     display: flex;
     flex-direction: column;
@@ -20,14 +21,16 @@
     padding: 15px;
 
 }
-.iFrame {
+
+/* Left Half Stuff */
+.displayPDF {
     flex: 3;
     border: 1px solid #000;
     overflow: hidden;
     background-color: #303030;
     
 }
-.iFrame img{
+.displayPDF img{
     height: 50%;
     object-fit: contain;
 }
@@ -35,12 +38,13 @@
     flex:1;
     border: 1px solid #000;
 
-}
+} 
+/* Header */
 .header {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    background-color: #303030;
+    background-color: #129a26;
     padding: 10px;
     color: #fff;
   }
@@ -51,11 +55,41 @@
     border: 1px solid #fff;
     border-radius: 4px;
     margin-right: 10px;
-    background-color: transparent;
+    background-color: #347121;
     color: #fff;
   }
   
   .section-switch:active {
-    background-color: #811313;
+    background-color: #dbd2d2;
     color: #303030;
+  }
+
+/* PDFs */
+.notesPDFs {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 10px;
+}
+.pdf-link {
+    padding: 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+/* Discussion */
+  .discussion {
+    display: flex;
+    flex-direction: column;
+  }
+  .messageBox {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+  }
+  .messageBox:nth-of-type(even) {
+    background-color: #acf6a3df; /* Adjust the gray color as needed */
+  }
+  
+  /* Apply white background to odd-indexed message boxes */
+  .messageBox:nth-of-type(odd) {
+    background-color: #ffffff; /* Adjust the white color as needed */
   }
