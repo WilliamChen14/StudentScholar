@@ -5,7 +5,7 @@ const File = require("./models/file");
 
 
 const multer = require('multer');
-const upload = multer({dest: "uploads/ "})
+const upload = multer({dest: "uploads/"})
 const GridFsStorage = require('multer-gridfs-storage').GridFsStorage;
 const Grid = require('gridfs-stream');
 
@@ -137,3 +137,6 @@ function uploadFiles(req, res) {
     console.log(req.file);
     res.json({ message: "Successfully uploaded files" });
 }
+
+const path = require("path")
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
