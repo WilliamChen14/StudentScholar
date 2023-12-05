@@ -36,6 +36,8 @@ function Files() {
     .then((res) => {
       console.log(res)
       console.log("It's worked until this point")
+
+      alert("IT WORKED!!!!!!");
     })
     .catch((err) => console.error("Error occurred", err));
 
