@@ -1,8 +1,5 @@
 import './Files.css'
 import UploadPhoto from './assets/upload-image.png';
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-
 import {React, useState} from "react";
 import axios from 'axios'
 
@@ -12,7 +9,7 @@ function ClassList() {
 
   return (
     <>
-      {classes.map((classItem, val) => {
+      {classes.map((classItem, valç) => {
         return (
           <option value={val}> {classItem} </option>
         )

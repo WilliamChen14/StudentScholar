@@ -93,6 +93,10 @@
     margin-bottom: 1px; 
 }
 
+#dropdown-basic {
+    color: 2px solid lightblue; 
+}
+
 #left-side {
     display: flex;
     flex-direction: row;

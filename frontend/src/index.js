@@ -11,6 +11,7 @@ import Container from "react-bootstrap/Container";
 import Card from 'react-bootstrap/Card';
 
 import BillPhoto from './assets/BillPhoto.png'
+import PhilipPhoto from './assets/Philip_photo.jpg'
 import { CardBody } from 'react-bootstrap';
 
 import CreateUser from './components/CreateUser';
@@ -60,7 +61,7 @@ const Home = () => {
               <Row>
                 <Col xs={4}>
                   <div className='team-member-photo'>
-                    <Card.Img src={BillPhoto}/>
+                    <Card.Img src={PhilipPhoto}/>
                   </div>
                   <div>
                     <p1 className='team-member-name'>Bill Chen</p1>
@@ -72,6 +73,28 @@ const Home = () => {
                 <Col>
                   <p1>
                     Hi, my name is Bill Chen. I am a Computer Science and Engineering Major at UCLA. i like to blay blahsdfsadjkfldsa sad fsad fas df sadf sad f ae as edf v d fsa df 
+                  </p1>
+                </Col>
+              </Row>
+
+            </Card>
+
+            <Card className='team-member-card'>
+              <Row>
+                <Col xs={4}>
+                  <div className='team-member-photo'>
+                    <Card.Img src={BillPhoto}/>
+                  </div>
+                  <div>
+                    <p1 className='team-member-name'>Bill Chen</p1>
+                  </div>
+                  <div>
+                    <p1 className='team-member-role'>Team Member</p1>
+                  </div>
+                </Col>
+                <Col>
+                  <p1>
+                    Hello, my name is Philip Huang and I am from Seattle, Washington. I am a second-year student in UCLA majoring in Computer Engineering. i like to play basketball and tennis, listen to music, and watch anime. 
                   </p1>
                 </Col>
               </Row>
