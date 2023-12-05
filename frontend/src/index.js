@@ -50,7 +50,6 @@ const Home = () => {
     <div>
       <img src={FrontPagePhoto} className='image'></img>
     </div>
-    <CreateUser />
     <Container className='body'>
       <Row className='row-container'>
         <Col xs={7} className='about-us-container'>

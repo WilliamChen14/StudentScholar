@@ -51,29 +51,17 @@ function Profile() {
 
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const [googleUser, setGoogleUser] = useState([]);
   const [profile, setProfile] = useState({});
   const [tempUser, setTempUser] = useState({ username: '' });
   const [userClasses, setUserClasses] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem('user'));
-    console.log(storedUser);
-    const storedClasses = JSON.parse(localStorage.getItem('userClasses'));
 
-    if (storedUser) {
-      setUser(storedUser);
-      setIsLoggedIn(true);
-    }
-
-    if (storedClasses) {
-      setUserClasses(storedClasses);
-    }
-  }, []);
 
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => {
-      setUser(codeResponse);
+      setGoogleUser(codeResponse);
       setIsLoggedIn(true);
       //localStorage.setItem('user', JSON.stringify(codeResponse));
     },
@@ -83,6 +71,7 @@ function Profile() {
   const logout = () => {
     googleLogout();
     setUser(null);
+    setGoogleUser(null);
     setProfile({});
     setIsLoggedIn(false);
     AuthService.logout();
@@ -91,15 +80,27 @@ function Profile() {
 
   useEffect(
         () => {
+            const storedUser = JSON.parse(localStorage.getItem('user'));
+            console.log(storedUser);
+            const storedClasses = JSON.parse(localStorage.getItem('userClasses'));
+
+            if (storedUser) {
+            setUser(storedUser);
+            setIsLoggedIn(true);
+            }
+
+            if (storedClasses) {
+            setUserClasses(storedClasses);
+            }
             const currentUser = AuthService.getCurrentUser();
             if(currentUser){
                 console.log(currentUser);
             }
-            if (user) {
+            if (googleUser) {
                 axios
-                    .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+                    .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${googleUser.access_token}`, {
                         headers: {
-                            Authorization: `Bearer ${user.access_token}`,
+                            Authorization: `Bearer ${googleUser.access_token}`,
                             Accept: 'application/json'
                         }
                     })
@@ -109,7 +110,7 @@ function Profile() {
                     .catch((err) => console.log(err));
             }
         },
-        [ user ]
+        [ googleUser ]
     );
 
   const checkIfThere = (e) => {
