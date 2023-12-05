@@ -4,6 +4,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Profile.css';
 
+import AuthService from './services/auth.service';
+
 function ClassCodeBox({ addClass }) {
   const [classCode, setClassCode] = useState('');
 
@@ -37,7 +39,6 @@ function ClassCodeBox({ addClass }) {
   );
 }
 
-import AuthService from './services/auth.service';
 
 function Profile() {
 
@@ -50,6 +51,7 @@ function Profile() {
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('user'));
+    console.log(storedUser);
     const storedClasses = JSON.parse(localStorage.getItem('userClasses'));
 
     if (storedUser) {
@@ -66,7 +68,7 @@ function Profile() {
     onSuccess: (codeResponse) => {
       setUser(codeResponse);
       setIsLoggedIn(true);
-      localStorage.setItem('user', JSON.stringify(codeResponse));
+      //localStorage.setItem('user', JSON.stringify(codeResponse));
     },
     onError: (error) => console.log('Login Failed:', error),
   });
