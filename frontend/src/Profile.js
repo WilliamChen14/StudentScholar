@@ -37,6 +37,14 @@ function ClassCodeBox({ addClass }) {
   );
 }
 
+function Notes() {
+    return (
+        <div className="my-notes">
+            <h2> My Pages/Favorited</h2>
+        </div>
+    );
+}
+
 function Profile() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
@@ -126,6 +134,7 @@ function Profile() {
 
   return (
     <div className="container">
+      {isLoggedIn && <Notes />}
       <div className="user-info">
         {isLoggedIn ? (
           <div>
