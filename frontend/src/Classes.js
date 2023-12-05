@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Classes.css';
+
+import AuthService from './services/auth.service';
+
 
 function ClassesBox({ title, description, image, link }) {
   return (
@@ -43,6 +46,22 @@ function Classes() {
       link: '/Notes',
     },
   ];
+
+  useEffect(
+    ()=> {
+      const user = AuthService.getCurrentUser();
+      console.log("opened classes");
+      console.log(user);
+
+      if (user) {
+        console.log(user)
+      }
+      else{
+        //redirect page to home
+      }
+      
+      },[]
+  );
 
   const filteredClassData = searchQuery
     ? classData.filter((classItem) =>

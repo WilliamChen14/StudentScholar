@@ -37,7 +37,10 @@ function ClassCodeBox({ addClass }) {
   );
 }
 
+import AuthService from './services/auth.service';
+
 function Profile() {
+
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState({});
@@ -73,25 +76,32 @@ function Profile() {
     setUser(null);
     setProfile({});
     setIsLoggedIn(false);
-    localStorage.removeItem('user');
+    AuthService.logout();
     localStorage.removeItem('userClasses');
   };
 
-  useEffect(() => {
-    if (user) {
-      axios
-        .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
-          headers: {
-            Authorization: `Bearer ${user.access_token}`,
-            Accept: 'application/json',
-          },
-        })
-        .then((res) => {
-          setProfile(res.data);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [user]);
+  useEffect(
+        () => {
+            const currentUser = AuthService.getCurrentUser();
+            if(currentUser){
+                console.log(currentUser);
+            }
+            if (user) {
+                axios
+                    .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+                        headers: {
+                            Authorization: `Bearer ${user.access_token}`,
+                            Accept: 'application/json'
+                        }
+                    })
+                    .then((res) => {
+                        setProfile(res.data);
+                    })
+                    .catch((err) => console.log(err));
+            }
+        },
+        [ user ]
+    );
 
   const checkIfThere = (e) => {
     e.preventDefault();
@@ -99,14 +109,13 @@ function Profile() {
 
     console.log(tempUser.username);
 
-    axios
-      .post('http://localhost:8000/loggin-user', tempUser)
-      .then((res) => {
-        console.log('it worked');
-      })
-      .catch((err) => {
-        console.log('Error in finding a user!');
-      });
+    AuthService.login(tempUser.username)
+            .then((res)=>{
+                console.log("logged in");
+            })
+            .catch((err)=>{
+                console.log('Error in logging in');
+            })
   };
 
   const addClass = (newClass) => {

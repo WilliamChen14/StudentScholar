@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect}from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
@@ -16,6 +16,7 @@ import { CardBody } from 'react-bootstrap';
 import CreateUser from './components/CreateUser';
 
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import AuthService from './services/auth.service';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -28,6 +29,22 @@ root.render(
 );
 
 const Home = () => {
+
+  useEffect(
+    ()=> {
+      const user = AuthService.getCurrentUser();
+
+      if (user) {
+        console.log(user)
+      }
+      else{
+        //redirect page to home
+      }
+      
+      },[]
+  );
+
+
   return (
     <>
     <div>
