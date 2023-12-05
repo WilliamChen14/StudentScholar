@@ -32,15 +32,17 @@ app.listen(8000,() => {
     console.log("Server started on port 8000")
 })
 
-app.post('/loggin-user', async (req, res) => {
+app.post('/login', async (req, res) => {
     try {
         console.log(req.body.username);
+        let username = req.body.username;
         const tempUser = await User.findOne({username: req.body.username});
-        console.log(tempUser);
         if(!tempUser){
             User.create(req.body);
         }
-        console.log("done");
+
+        res.send({accessToken: username});
+
     }
     catch(err){
         console.log(err);

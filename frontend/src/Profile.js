@@ -5,6 +5,8 @@ import axios from 'axios';
 
 import { useNavigate } from 'react-router-dom';
 
+import AuthService from './services/auth.service';
+
 function Profile() {
     const navigate = useNavigate();
     const [user, setUser] = useState([]);
@@ -16,8 +18,27 @@ function Profile() {
         onError: (error) => console.log('Login Failed:', error)
     });
 
+    const loginFunction = () => {
+        if(() => login()){
+            console.log("loginFunction Check1");
+        }
+
+        if(profile){
+            AuthService.login(profile.email);
+            const currentUser = AuthService.getCurrentUser();
+            console.log("loginFunction Check2");
+            console.log(currentUser);
+        }
+    }
+
+
     useEffect(
         () => {
+            const currentUser = AuthService.getCurrentUser();
+            if(currentUser){
+                console.log("LESGOOOOOO");
+                console.log(currentUser);
+            }
             if (user) {
                 axios
                     .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
@@ -36,6 +57,7 @@ function Profile() {
     );
 
     const logOut = () => {
+        AuthService.logout();
         googleLogout();
         setProfile(null);
     };
@@ -48,15 +70,25 @@ function Profile() {
 
         console.log(tempUser.username);
 
-        
+        AuthService.login(tempUser.username)
+            .then((res)=>{
+                console.log("logged in");
+            })
+            .catch((err)=>{
+                console.log('Error in logging in');
+            })
+
+        /*
         axios
-            .post('http://localhost:8000/loggin-user', tempUser)
+            .post('http://localhost:8000/login', tempUser)
             .then((res)=>{
                 console.log("it worked");
             })
             .catch((err) => {
                 console.log('Error in finding a user!');
             });
+
+            */
     }
 
     return (

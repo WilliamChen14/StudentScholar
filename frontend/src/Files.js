@@ -4,11 +4,30 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import { handleFiles } from './FileUpload'
 
+import {useEffect} from 'react';
+import AuthService from './services/auth.service';
+
 function handleButtonClick(id) {
   alert(id);
 }
 
 function Files() {
+
+  useEffect(
+    ()=> {
+      const user = AuthService.getCurrentUser();
+
+      if (user) {
+        console.log(user)
+      }
+      else{
+        //redirect page to home
+      }
+      
+      },[]
+  );
+
+
   return (
     <>
       <h1>Class Notes Upload Page</h1>
