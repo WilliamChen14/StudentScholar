@@ -4,6 +4,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Profile.css';
 
+import AuthService from './services/auth.service';
+
 function ClassCodeBox({ addClass }) {
   const [classCode, setClassCode] = useState('');
 
@@ -37,33 +39,31 @@ function ClassCodeBox({ addClass }) {
   );
 }
 
+function Notes() {
+    return (
+        <div className="my-notes">
+            <h2> My Pages/Favorited</h2>
+        </div>
+    );
+}
+
 function Profile() {
+
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const [googleUser, setGoogleUser] = useState([]);
   const [profile, setProfile] = useState({});
   const [tempUser, setTempUser] = useState({ username: '' });
   const [userClasses, setUserClasses] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem('user'));
-    const storedClasses = JSON.parse(localStorage.getItem('userClasses'));
 
-    if (storedUser) {
-      setUser(storedUser);
-      setIsLoggedIn(true);
-    }
-
-    if (storedClasses) {
-      setUserClasses(storedClasses);
-    }
-  }, []);
 
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => {
-      setUser(codeResponse);
+      setGoogleUser(codeResponse);
       setIsLoggedIn(true);
-      localStorage.setItem('user', JSON.stringify(codeResponse));
+      //localStorage.setItem('user', JSON.stringify(codeResponse));
     },
     onError: (error) => console.log('Login Failed:', error),
   });
@@ -71,27 +71,47 @@ function Profile() {
   const logout = () => {
     googleLogout();
     setUser(null);
+    setGoogleUser(null);
     setProfile({});
     setIsLoggedIn(false);
-    localStorage.removeItem('user');
+    AuthService.logout();
     localStorage.removeItem('userClasses');
   };
 
-  useEffect(() => {
-    if (user) {
-      axios
-        .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
-          headers: {
-            Authorization: `Bearer ${user.access_token}`,
-            Accept: 'application/json',
-          },
-        })
-        .then((res) => {
-          setProfile(res.data);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [user]);
+  useEffect(
+        () => {
+            const storedUser = JSON.parse(localStorage.getItem('user'));
+            console.log(storedUser);
+            const storedClasses = JSON.parse(localStorage.getItem('userClasses'));
+
+            if (storedUser) {
+            setUser(storedUser);
+            setIsLoggedIn(true);
+            }
+
+            if (storedClasses) {
+            setUserClasses(storedClasses);
+            }
+            const currentUser = AuthService.getCurrentUser();
+            if(currentUser){
+                console.log(currentUser);
+            }
+            if (googleUser) {
+                axios
+                    .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${googleUser.access_token}`, {
+                        headers: {
+                            Authorization: `Bearer ${googleUser.access_token}`,
+                            Accept: 'application/json'
+                        }
+                    })
+                    .then((res) => {
+                        setProfile(res.data);
+                    })
+                    .catch((err) => console.log(err));
+            }
+        },
+        [ googleUser ]
+    );
 
   const checkIfThere = (e) => {
     e.preventDefault();
@@ -99,14 +119,13 @@ function Profile() {
 
     console.log(tempUser.username);
 
-    axios
-      .post('http://localhost:8000/loggin-user', tempUser)
-      .then((res) => {
-        console.log('it worked');
-      })
-      .catch((err) => {
-        console.log('Error in finding a user!');
-      });
+    AuthService.login(tempUser.username)
+            .then((res)=>{
+                console.log("logged in");
+            })
+            .catch((err)=>{
+                console.log('Error in logging in');
+            })
   };
 
   const addClass = (newClass) => {
@@ -126,6 +145,7 @@ function Profile() {
 
   return (
     <div className="container">
+      {isLoggedIn && <Notes />}
       <div className="user-info">
         {isLoggedIn ? (
           <div>

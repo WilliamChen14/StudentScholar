@@ -14,16 +14,15 @@ import AuthService from './services/auth.service';
 const Notes = () => {
 
   useEffect(
-    ()=> {
-      const user = AuthService.getCurrentUser();
+      ()=> {
+        const user = AuthService.getCurrentUser();
 
-      if (user) {
-        console.log(user)
-      }
-      else{
-        //redirect page to home
-      }
-
+        if (user) {
+          console.log(user)
+        }
+        else{
+          //redirect page to home
+        }
       },[]
   );
 

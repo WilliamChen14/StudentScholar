@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect}from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
@@ -11,11 +11,13 @@ import Container from "react-bootstrap/Container";
 import Card from 'react-bootstrap/Card';
 
 import BillPhoto from './assets/BillPhoto.png'
+import PhilipPhoto from './assets/Philip_photo.jpg'
 import { CardBody } from 'react-bootstrap';
 
 import CreateUser from './components/CreateUser';
 
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import AuthService from './services/auth.service';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -28,12 +30,27 @@ root.render(
 );
 
 const Home = () => {
+
+  useEffect(
+    ()=> {
+      const user = AuthService.getCurrentUser();
+
+      if (user) {
+        console.log(user)
+      }
+      else{
+        //redirect page to home
+      }
+      
+      },[]
+  );
+
+
   return (
     <>
     <div>
       <img src={FrontPagePhoto} className='image'></img>
     </div>
-    <CreateUser />
     <Container className='body'>
       <Row className='row-container'>
         <Col xs={7} className='about-us-container'>
@@ -71,11 +88,31 @@ const Home = () => {
                 </Col>
                 <Col>
                   <p1>
-                    Hi, my name is Bill Chen. I am a Computer Science and Engineering Major at UCLA. i like to blay blahsdfsadjkfldsa sad fsad fas df sadf sad f ae as edf v d fsa df 
+                  Hi, my name is Bill Chen. I am a Computer Science and Engineering Major at UCLA.
                   </p1>
                 </Col>
               </Row>
 
+            </Card>
+            <Card className='team-member-card'>
+              <Row>
+                <Col xs={4}>
+                  <div className='team-member-photo'>
+                    <Card.Img src={PhilipPhoto}/>
+                  </div>
+                  <div>
+                    <p1 className='team-member-name'>Philip Huang</p1>
+                  </div>
+                  <div>
+                    <p1 className='team-member-role'>Team Member</p1>
+                  </div>
+                </Col>
+                <Col>
+                  <p1>
+                    Hello, my name is Philip Huang and I am from Seattle, Washington. I am a second-year student at UCLA majoring in Computer Engineering. I like to play basketball and tennis, listen to music, and watch anime.  
+                  </p1>
+                </Col>
+              </Row>
             </Card>
           </div>
         </Col>
