@@ -6,8 +6,19 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import {React, useState} from "react";
 import axios from 'axios'
 
-function handleButtonClick(id) {
-  alert(id);
+const classes = ["COM SCI M51A", "COM SCI 35L", "MATH 33B", "STATS 100A"];
+
+function ClassList() {
+
+  return (
+    <>
+      {classes.map((classItem, val) => {
+        return (
+          <option value={val}> {classItem} </option>
+        )
+      })}
+    </>
+  );
 }
 
 function Files() {
@@ -53,42 +64,38 @@ function Files() {
 
   return (
     <>
-      <h1>Class Notes Upload Page</h1>
-      <div className='flex-container'>
+      <h1 id='title'>Class Notes Upload Page</h1>
       <form id="form" className='my-files'>
-        <div id='left-side'>
-          <div id='drop-area'>
-            
+        <div className='flex-container'>
+          <div id='left-side'>
+            <div id='drop-area'>
               <img src={UploadPhoto} className='upload-img'></img>
               <p className='colored-paragraph'>Drag and drop files here</p>
               <input type='file' id='fileElem' onChange={handleFileChange} />
-              <label className='button' for='fileElem'>Select some files</label>
-
-              <button type="submit" onClick={submitForm}>Submit File</button>
-           
+              <div class='upload-submit-buttons'>
+                <label className='button' for='fileElem'>Select a file</label>
+                <button type="submit" onClick={submitForm}>Submit File</button>
+              </div>
+            </div>
           </div>
-        </div>
-        <div id='right-side'>
-          <div className='description-area'>
-         
+          <div id='right-side'>
+            <div className='description-area'>
+
               <h2>Description</h2>
               <textarea type='text' id='description' text-align='left' placeholder='Enter notes description:' style=
                 {{ width: '500px', height: '120px' }}></textarea>
-           
-          </div>
-          <div className='class-area'>
-            <h2>Classes</h2>
-            
 
-            <select id="dropdown-basic" title='Select a class'>
-              <option value="1">COM SCI 35L</option>
-              <option value="2">COM SCI M51A</option>
-              <option value="3">MATH 33B</option>
-            </select>
+            </div>
+            <div className='class-area'>
+
+              <h2>Classes</h2>
+              <select id="dropdown-basic" title='Select a class'>
+                <ClassList></ClassList>
+              </select>
+            </div>
           </div>
         </div>
-        </form>
-      </div>
+      </form>
     </>
   );
 }
