@@ -1,0 +1,75 @@
+.container {
+  display: flex;
+}
+
+.user-info {
+  margin-right: 20px;
+}
+
+.my-classes {
+  margin-left: auto;
+}
+
+.class-code-box {
+  margin-top: 10px;
+}
+
+.class-code-box label {
+  margin-right: 10px;
+}
+
+.class-code-box input {
+  padding: 5px;
+  margin-right: 10px;
+}
+
+.class-code-box button {
+  padding: 6px 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.class-code-box button:hover {
+  background-color: #45a049;
+}
+
+.my-classes-container {
+  border: 1px solid #ccc;
+  padding: 15px;
+  max-width: 300px;
+  background-color: #f9f9f9;
+}
+
+.my-classes-container h2 {
+  color: #333;
+}
+
+.class-list {
+  list-style: none;
+  padding: 0;
+}
+
+.class-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 8px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.remove-button {
+  padding: 4px 8px;
+  background-color: #e57373;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.remove-button:hover {
+  background-color: #c62828;
+}
