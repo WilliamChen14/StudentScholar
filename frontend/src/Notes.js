@@ -1,30 +1,39 @@
-import React, { useState } from 'react';  //use state to change bw notes and convo
+import React, { useState, useEffect} from 'react';  //use state to change bw notes and convo
 import './Notes.css';
+
 // import ReactDOM from 'react-dom/client'; // interactivity and dynamic changing of page
 // import { Button } from 'react-bootstrap'; 
 // import HeaderComponent from './components/HeaderComponent';
-// import FooterComponent from './components/FooterComponent';
-// import Row from 'react-bootstrap/Row';
-// import Col from 'react-bootstrap/Col';
+import './Notes.css';
 // import Container from "react-bootstrap/Container";
 // import Card from 'react-bootstrap/Card';
 
-const exampleMessages = [
-  "These notes look great!",
-  "Does anyone know what he means on pg 5?",
-  "Thank you so much for these!!!",
-  "@message above, can I dm you on IG?",
-  "Who wants to make a study group for the final?"
-];
 
-const examplePDFs = [
-  { name: "PDF 1", link: "https://example.com/pdf1.pdf" },
-  { name: "PDF 2", link: "https://example.com/pdf2.pdf" },
-];
+import AuthService from './services/auth.service';
 
 const Notes = () => {
 
-  const [activeSection, setActiveSection] = useState("notesPDFs");
+  useEffect(
+    ()=> {
+      const user = AuthService.getCurrentUser();
+
+      if (user) {
+        console.log(user)
+      }
+      else{
+        //redirect page to home
+      }
+
+      },[]
+  );
+
+  //create setOnNotesPg function?
+  //let onNotesPage = useState(true); //use this?
+  //blah
+  const [onNotesPg, setOnNotesPg] = useState(true);
+
+
+  const [activeSection, setActiveSection] = useState("notes");
   const [selectedPDF, setSelectedPDF] = useState(null);
 
   const switchSection = (section) => {
@@ -54,6 +63,19 @@ const Notes = () => {
     displayedPDFDiv.appendChild(defaultMessage);
     }
   };
+
+  const exampleMessages = [
+    "These notes look great!",
+    "Does anyone know what he means on pg 5?",
+    "Thank you so much for these!!!",
+    "@message above, can I dm you on IG?",
+    "Who wants to make a study group for the final?"
+  ];
+  
+  const examplePDFs = [
+    { name: "PDF 1", link: "https://example.com/pdf1.pdf" },
+    { name: "PDF 2", link: "https://example.com/pdf2.pdf" },
+  ];
 
     return (
       <>
