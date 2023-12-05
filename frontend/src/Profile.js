@@ -18,25 +18,10 @@ function Profile() {
         onError: (error) => console.log('Login Failed:', error)
     });
 
-    const loginFunction = () => {
-        if(() => login()){
-            console.log("loginFunction Check1");
-        }
-
-        if(profile){
-            AuthService.login(profile.email);
-            const currentUser = AuthService.getCurrentUser();
-            console.log("loginFunction Check2");
-            console.log(currentUser);
-        }
-    }
-
-
     useEffect(
         () => {
             const currentUser = AuthService.getCurrentUser();
             if(currentUser){
-                console.log("LESGOOOOOO");
                 console.log(currentUser);
             }
             if (user) {
@@ -78,17 +63,6 @@ function Profile() {
                 console.log('Error in logging in');
             })
 
-        /*
-        axios
-            .post('http://localhost:8000/login', tempUser)
-            .then((res)=>{
-                console.log("it worked");
-            })
-            .catch((err) => {
-                console.log('Error in finding a user!');
-            });
-
-            */
     }
 
     return (
