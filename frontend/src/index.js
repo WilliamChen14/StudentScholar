@@ -88,7 +88,7 @@ const Home = () => {
                 </Col>
                 <Col>
                   <p1>
-                  Hi, my name is Bill Chen. I am a Computer Science and Engineering Major at UCLA. I love cornfields and my favorite anime is 'Girlfriends Girlfriends'. I suck at basketball.
+                  Hi, my name is Bill Chen. I am a Computer Science and Engineering Major at UCLA.
                   </p1>
                 </Col>
               </Row>
