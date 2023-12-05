@@ -1,3 +1,8 @@
+#title {
+    margin-top: 20px; 
+    margin-bottom: 50px;
+}
+
 .flex-container {
     display: flex;
 }
@@ -10,14 +15,14 @@
     width: 500px;
     height: 400px;
     font-family: Georgia, 'Times New Roman', Times, serif;
-    margin-left: 250px;
+    margin-left: 150px;
     margin-bottom: 50px; 
     padding: 100px 0px 100px 0px;
 }
 
 .upload-img {
-    width: 80px;
-    height: 65px;
+    width: 100px;
+    height: 80px;
 }
 
 #drop-area.highlight {
@@ -29,8 +34,16 @@
     text-align: center;
 }
 
+.upload-submit-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .my-files {
     align-items: center;
+    width: 100%;
     margin-top: 10px;
     margin-bottom: 10px;
 }
@@ -38,6 +51,7 @@
 .button {
     display: inline-block;
     padding: 10px;
+    margin-bottom: 20px;
     background: #ccc;
     cursor: pointer;
     border-radius: 5px;
@@ -56,7 +70,7 @@
     flex: 1;
     align-items: center;
     justify-content: center;
-    width: 500px;
+    width: 600px;
     font-family: Georgia, 'Times New Roman', Times, serif;
     padding-top: 5px;
     padding-bottom: 5px; 
@@ -65,9 +79,8 @@
 
 .class-area {
     flex: 1; 
-    text-align: left;
     justify-content: center;
-    width: 500px;
+    width: 600px;
     font-family: Georgia, 'Times New Roman', Times, serif;
     padding-top: 5px;
     padding-bottom: 5px; 
@@ -78,21 +91,27 @@
 .description-area h2 {
     color: #000000;
     font-size: 15px;
-    text-align: left;
+    text-align: center;
 }
 
 .class-area h2 {
     color: #000000;
     font-size: 15px;
-    text-align: left;
+    text-align: center;
 }
 
 #description {
-    text-align: left;
+    margin-top: 10px; 
+    border: 2px solid lightblue;
 }
 
 .my-description {
     margin-bottom: 1px; 
+}
+
+#dropdown-basic {
+    margin-top: 10px; 
+    border: 2px solid lightblue;
 }
 
 #left-side {
