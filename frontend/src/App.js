@@ -9,12 +9,30 @@ import Profile from "./Profile";
 import Notes from "./Notes"; 
 import FooterComponent from './components/FooterComponent';
 
+import EventBus from './common/EventBus';
+
+import React, {Component, useEffect} from "react";
+import AuthService from './services/auth.service';
 
 
 
-function App() {
 
-  
+function App(){
+
+  useEffect(
+    ()=> {
+      const user = AuthService.getCurrentUser();
+
+      if (user) {
+        console.log(user)
+      }
+      else{
+        //redirect page to home
+      }
+      
+      },[]
+  );
+
   return (
     <div className="App">
       <Router>

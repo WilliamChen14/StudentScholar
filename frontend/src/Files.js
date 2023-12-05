@@ -6,12 +6,28 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import {React, useState} from "react";
 import axios from 'axios'
 
+import {useEffect} from 'react';
+import AuthService from './services/auth.service';
+
 function handleButtonClick(id) {
   alert(id);
 }
 
 function Files() {
 
+  useEffect(
+    ()=> {
+      const user = AuthService.getCurrentUser();
+
+      if (user) {
+        console.log(user)
+      }
+      else{
+        //redirect page to home
+      }
+      
+      },[]
+  );
   const [file, setFile] = useState('');
 
   function submitForm() {
