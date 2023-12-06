@@ -13,7 +13,7 @@ function ClassList() {
     <>
       {classes.map((classItem, val) => {
         return (
-          <option value={val}> {classItem} </option>
+          <option> {classItem} </option> /*  value={val} id={classItem} */ 
         )
       })}
     </>
@@ -45,15 +45,20 @@ function Files() {
     const form = document.getElementById("form");
     
     const description = document.getElementById("description")
-    const classSelected = document.getElementById("dropdown-basic");
+    const className = document.getElementById("dropdown-basic");
     const fileSelected = document.getElementById("fileElem");
+    const uploaderName = "Pravir" // hardcoded
     const formData = new FormData();
 
     formData.append("description", description.value);
-    formData.append("classSelected", classSelected.value);
+    formData.append("className", className.value);
+    formData.append("uploaderName", uploaderName);
     formData.append("file", fileSelected.files[0]);
     alert(fileSelected.files[0].name);
     alert(fileSelected.files[0].size, 'bytes');
+    alert(className)
+    alert(className.value)
+    alert(uploaderName);
 
     axios.post("http://localhost:8000/file-upload", formData)
     .then((res) => {

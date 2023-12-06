@@ -5,14 +5,17 @@
 
 .body {
   padding-top: 25px;
+  height: fit-content;
 }
 
 .row-container {
+  height:fit-content;
   margin-left: 0px;
   margin-right: 0px;
 }
 
 .about-us-container {
+  height:fit-content;
   border-radius: 2px;
   background: #d9d9d9;
   padding: 20px;
@@ -33,6 +36,7 @@
 }
 
 .meet-the-team-container {
+  height:fit-content;
   border-radius: 2px;
   background: #d9d9d9;
   padding: 20px;

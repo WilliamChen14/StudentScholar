@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const User = require("./models/user");
 const File = require("./models/file");
+const Class = require("./models/class");
 
 const { v4: uuidv4 } = require('uuid');
 
@@ -105,6 +106,34 @@ app.post('/add-file', (req,res)=>{
         });
 })
 
+app.post('/create-class', async (req,res)=>{
+
+    const tempClass = await Class.findOne({classID: req.body.classID});
+    if(tempClass){
+        console.log("classid already exists");
+    }
+    else{
+        Class.create(req.body)
+        .then((result) =>{
+            res.send(result);
+        })
+        .catch((err)=>{
+            console.log(err);
+        });
+    }
+})
+
+app.post('/get-class', async (req,res)=>{
+    const tempClass = await Class.findOne({classID: req.body.classID});
+    if(tempClass){
+        res.send(tempClass);
+    }
+    else{
+        console.log('Class doesnt exist');
+    }
+})
+
+
 app.delete('/delete-users', async (req,res) =>{
 
     try {
@@ -195,10 +224,37 @@ app.post('/file-upload', upload.single('file'), (req, res, next) => {
     /*....*/ 
 
     console.log(req.file)
+    console.log(req.body)
 
     if (!req.file) {
         return res.status(400).send('No file uploaded.');
     }
+
+    const fileData = {
+        fileName: req.file.originalname,
+        mimetype: req.file.mimetype,
+        size: req.file.size,
+        className: req.body.className,
+        description: req.body.description,
+        uploaderName: req.body.uploaderName
+        // You can include any other relevant file metadata here
+      };
+    console.log(fileData);
+    
+    const newFile = new File(fileData);
+
+    newFile.save()
+    .then(() => res.status(201).send({
+      message: 'File new layout uploaded successfully',
+      file: fileData
+    }))
+    .catch(err => {
+      console.error(err);
+      res.status(500).send({
+        message: 'Error uploading file new layout',
+        error: err
+      });
+    });
 
     try {
         // The file is automatically stored in MongoDB using GridFS,
@@ -214,4 +270,48 @@ app.post('/file-upload', upload.single('file'), (req, res, next) => {
         });
     }
 });
+
+app.post('/get-class-files', async (req, res) => {
+
+    console.log("HERE")
+    const className = req.body.className;
+
+    // let className = "";
+
+    // for(let i = 0; i < classNameWithSpecialChars.length; i++){
+    //     if(i < classNameWithSpecialChars.length - 2 && classNameWithSpecialChars.substring(i, i + 2) == "%20"){
+    //         className = className + " ";
+    //         i = i + 3;
+    //     } else {
+    //         className = className + classNameWithSpecialChars[i];
+    //     }
+    // }
+
+    // console.log(className);
+  
+    try {
+        // Debugging function call: findFileById();
+        // const allFiles = await File.find({});
+      const files = await File.find({ className: className });
+      res.json(files);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Error retrieving files');
+    }
+  });
+// Debugging function 
+// const idToFind = "6570010f95e3792e65d1fb99"; // Replace with the actual _id
+
+// async function findFileById() {
+//   try {
+//     const file = await File.find({className: "MATH 33B"});
+//     if (file) {
+//       console.log('Found file:', file);
+//     } else {
+//       console.log('No file found with that id');
+//     }
+//   } catch (err) {
+//     console.error('Error finding file:', err);
+//   }
+// }
 

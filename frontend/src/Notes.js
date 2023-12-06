@@ -1,11 +1,15 @@
 import React, { useState, useEffect} from 'react';
 import './Notes.css';
 import AuthService from './services/auth.service';
+
+import axios from 'axios';
 // import ReactDOM from 'react-dom/client'; // interactivity and dynamic changing of page
 // import { Button } from 'react-bootstrap'; 
 // import HeaderComponent from './components/HeaderComponent';
 // import Container from "react-bootstrap/Container";
 // import Card from 'react-bootstrap/Card';
+
+
 
 const exampleMessages = [
   "These notes look great!",
@@ -24,6 +28,27 @@ const examplePDFs = [
 ];
 
 const Notes = () => {
+  const [curClass, setCurClass] = useState("");
+
+  function fetchFilesForClass(className) {
+    // Encode the class name to ensure the URL is correctly formatted
+    
+  
+    // Construct the URL with the encoded class name
+    const url = `http://localhost:8000/get-class-files`;
+    console.log(url);
+    // Make the GET request
+    axios.post(url, { className: className })
+      .then(response => {
+        console.log('Files:', response.data);
+        // Handle the response data (array of files)
+        
+      })
+      .catch(error => {
+        console.error('Error fetching files:', error);
+        // Handle errors here
+      });
+  }
 
   useEffect(
       ()=> {
@@ -36,6 +61,40 @@ const Notes = () => {
           //redirect page to home
         }
       },[]
+  );
+
+  useEffect(
+    () => {
+      const currentPage = AuthService.getClassPage();
+
+      
+
+      if(currentPage){
+        console.log(currentPage);
+        setCurClass(currentPage);
+
+        // let newString = "";
+
+        // for(let i = 0; i < currentPage.length; i++){
+        //   if(currentPage[i] == " "){
+        //     newString = newString + "%20";
+        //   } else {
+        //     newString = newString + currentPage[i];
+        //   }
+        // }
+
+        fetchFilesForClass(currentPage);
+
+      } else {
+        // did not update
+        console.log("Update didn't carry over - for class name")
+      }
+
+      
+      
+    }, [AuthService.getClassPage()]
+
+
   );
 
   const [activeSection, setActiveSection] = useState("notesPDFs");
@@ -77,7 +136,7 @@ const Notes = () => {
     return (
       <>
 
-        <h1> "Class" Notes Display and Convo Page</h1>          
+        <h1> {curClass} Notes Display and Convo Page</h1>          
         <div className="body">
             <div className="leftHalf">
         

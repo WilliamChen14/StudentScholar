@@ -91,7 +91,7 @@ const Home = () => {
                 </Col>
                 <Col>
                   <p1>
-                  Hi, my name is Bill Chen. I am a Computer Science and Engineering Major at UCLA.
+                  Hi, my name is Bill Chen. I am a Computer Science and Engineering Major at UCLA. In my free time I like to sweat against my friends in word hunt and expore town without a place in mind.
                   </p1>
                 </Col>
               </Row>

@@ -6,7 +6,7 @@ import './Profile.css';
 
 import AuthService from './services/auth.service';
 
-function ClassCodeBox({ addClass }) {
+function ClassCodeBox({ addClass, classNames }) {
   const [classCode, setClassCode] = useState('');
 
   const handleClassCodeChange = (e) => {
@@ -16,21 +16,20 @@ function ClassCodeBox({ addClass }) {
   const handleAddClass = () => {
     const curUser = AuthService.getCurrentUser();
     axios
-        .post("http://localhost:8000/add-class", { username: curUser.accessToken, userClasses:[classCode]
+        .post("http://localhost:8000/get-class", { classID:[classCode]
         })
         .then(response => {
-            console.log("nice");
+          if (response.data && response.data.className) {
+            const className = response.data.className;
+            addClass(classCode, className);
+          } else {
+            console.log("Invalid class code");
+          }
+        })
+        .catch(error => {
+          console.error("Error fetching class data", error);
         });
-    if (classCode === '111111') {
-      addClass('CS35L');
-      setClassCode('');
-    } else if (classCode === '222222') {
-      addClass('CS31');
-      setClassCode('');
-    } else {
-      alert('Incorrect class code. Please try again.');
-    }
-  };
+    };
 
   return (
     <div className="class-code-box">
@@ -63,6 +62,10 @@ function Profile() {
   const [userClasses, setUserClasses] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const [userClassesID, setUserClassesID] = useState([]);
+  const [classNames, setClassNames] = useState({});
+  const [usernameText, setUsernameText] = useState("");
+
 
 
   const login = useGoogleLogin({
@@ -85,35 +88,68 @@ function Profile() {
     localStorage.removeItem('userClasses');
   };
 
-  const philipsucks = () => {
-    axios
-      .post("http://localhost:8000/get-user-classes", { username: "billchen314@gmail.com"
-      })
-      .then(response => {
-        console.log(response);
-      });
-  }
 
   useEffect(
         () => {
+          let isMounted = true;
+          
             const storedUser = JSON.parse(localStorage.getItem('user'));
             console.log(storedUser);
-            const storedClasses = JSON.parse(localStorage.getItem('userClasses'));
-
+            const storedClasses = JSON.parse(localStorage.getItem('userClasses')) || [];
 
 
             if (storedUser) {
             setUser(storedUser);
             setIsLoggedIn(true);
+            setUsernameText(storedUser.accessToken);
+
+
+            //This gets the users array of classes and then checks if the class exists
+            axios
+                .post("http://localhost:8000/get-user-classes", { username: storedUser.accessToken
+                })
+                .then(response => {
+                  if(isMounted) {        
+                    setUserClassesID(response.data[0].userClasses);
+                    for(let i = 0; i < response.data[0].userClasses.length; i++){
+
+                        //this is the class ID from the array
+                        let j = response.data[0].userClasses[i];
+
+                        //this axios request checks if classID j is valid and will give a response if it is
+                        axios
+                            .post("http://localhost:8000/get-class", { classID: j})
+                            .then(response =>{
+                                if(isMounted && response){
+                                    console.log("This class is valid");
+                                    setClassNames((prevNames) => ({
+                                      ...prevNames,
+                                      [j]: response.data.className,
+                                    }));
+                                    //this is the class name if the class id is valid
+                                    console.log(response.data.className);
+                                }
+                            })
+                            .catch(error => {
+                              console.error("Eroor fetching class data", error);
+                            });
+                        console.log(response.data[0].userClasses[i]);
+                    }
+                  }
+                })
+                .catch(error => {
+                  console.error("Error fetching user classes", error);
+                });
             }
+
+            
 
             if (storedClasses) {
             setUserClasses(storedClasses);
             }
             const currentUser = AuthService.getCurrentUser();
-            if(currentUser){
-                console.log(currentUser);
-            }
+
+
             if (googleUser) {
                 axios
                     .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${googleUser.access_token}`, {
@@ -137,6 +173,10 @@ function Profile() {
 
             }
 
+            return () => {
+              isMounted = false;
+            };
+
 
         },
         [ googleUser ]
@@ -144,13 +184,33 @@ function Profile() {
 
     );
 
+    const saveClasses = () =>{
+      console.log(userClassesID);
+      axios
+        .post("http://localhost:8000/add-class", {username: usernameText, userClasses: userClassesID})
+        .then((response)=>{
+          console.log(response);
+        })
+        .catch((err)=>{
+          console.log(err);
+        })
+    }
 
 
 
-  const addClass = (newClass) => {
-    if (!userClasses.includes(newClass)) {
-      setUserClasses((prevClasses) => [...prevClasses, newClass]);
-      localStorage.setItem('userClasses', JSON.stringify([...userClasses, newClass]));
+
+  const addClass = (newClassCode, newClassName) => {
+    if (!userClassesID.includes(newClassCode)) {
+      setUserClassesID((prevClasses) => [...prevClasses, newClassCode]);
+      setClassNames((prevNames) => ({
+        ...prevNames,
+        [newClassCode]: newClassName,
+      }));
+      setUserClasses((prevClasses) => [...prevClasses, newClassCode]);
+      localStorage.setItem('userClasses', JSON.stringify([...userClassesID, newClassCode]));
+    } else if (!userClasses.includes(newClassCode)){
+      setUserClasses((prevClasses) => [...prevClasses, newClassCode]);
+      localStorage.setItem('userClasses', JSON.stringify([...userClasses, newClassCode]));
     } else {
       alert('Class already exists in the list.');
     }
@@ -162,19 +222,20 @@ function Profile() {
     localStorage.setItem('userClasses', JSON.stringify(updatedClasses));
   };
 
+  const classCodeBox = (
+    <ClassCodeBox addClass={addClass} classNames={classNames} />
+  ); 
+
   return (
     <div className="container">
       {isLoggedIn && <Notes />}
       <div className="user-info">
         {isLoggedIn ? (
           <div>
-            <img src={profile.picture} alt="user image" />
-            <h3>User Logged in</h3>
-            <p>Name: {profile.name}</p>
-            <p>Email Address: {profile.email}</p>
+            <h2>My Profile</h2>
+            <p>Email Address: {usernameText} </p>
             <br />
             <button onClick={logout}>Log out</button>
-            <button onClick={philipsucks}>GetClasses Test</button>
           </div>
         ) : (
           <button onClick={() => login()}>Sign in with Google</button>
@@ -189,12 +250,13 @@ function Profile() {
             <ul className="class-list">
               {userClasses.map((cls, index) => (
                 <li key={index} className="class-list-item">
-                  {cls}
+                  {classNames[cls] || cls}
                   <button className="remove-button" onClick={() => removeClass(cls)}>
                     Remove
                   </button>
                 </li>
               ))}
+              <button onClick={saveClasses}>Save</button>
             </ul>
           </div>
         </div>
