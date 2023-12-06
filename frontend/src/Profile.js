@@ -21,6 +21,7 @@ function ClassCodeBox({ addClass }) {
         .then(response => {
             console.log("nice");
         });
+
     if (classCode === '111111') {
       addClass('CS35L');
       setClassCode('');
@@ -63,6 +64,8 @@ function Profile() {
   const [userClasses, setUserClasses] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const [userClassesID, setUserClassesID] = useState([]);
+
 
 
   const login = useGoogleLogin({
@@ -85,14 +88,6 @@ function Profile() {
     localStorage.removeItem('userClasses');
   };
 
-  const philipsucks = () => {
-    axios
-      .post("http://localhost:8000/get-user-classes", { username: "billchen314@gmail.com"
-      })
-      .then(response => {
-        console.log(response);
-      });
-  }
 
   useEffect(
         () => {
@@ -101,11 +96,39 @@ function Profile() {
             const storedClasses = JSON.parse(localStorage.getItem('userClasses'));
 
 
-
             if (storedUser) {
             setUser(storedUser);
             setIsLoggedIn(true);
+
+
+            //This gets the users array of classes and then checks if the class exists
+            axios
+                .post("http://localhost:8000/get-user-classes", { username: storedUser.accessToken
+                })
+                .then(response => {        
+                    setUserClassesID(response.data[0].userClasses);
+                    for(let i = 0; i < response.data[0].userClasses.length; i++){
+
+                        //this is the class ID from the array
+                        let j = response.data[0].userClasses[i];
+
+                        //this axios request checks if classID j is valid and will give a response if it is
+                        axios
+                            .post("http://localhost:8000/get-class", { classID: j})
+                            .then(response =>{
+                                if(response){
+                                    console.log("This class is valid");
+
+                                    //this is the class name if the class id is valid
+                                    console.log(response.data.className);
+                                }
+                            })
+                        console.log(response.data[0].userClasses[i]);
+                    }
+                });
             }
+
+            
 
             if (storedClasses) {
             setUserClasses(storedClasses);
@@ -174,7 +197,7 @@ function Profile() {
             <p>Email Address: {profile.email}</p>
             <br />
             <button onClick={logout}>Log out</button>
-            <button onClick={philipsucks}>GetClasses Test</button>
+            <button onClick={() => console.log(userClassesID)}>Log out</button>
           </div>
         ) : (
           <button onClick={() => login()}>Sign in with Google</button>

@@ -89,6 +89,7 @@ app.post('/get-user-classes', async (req,res)=>{
             userClasses: 1,
             _id: 0
         })
+        console.log(userClasses);
         res.send(userClasses);
     }
     catch(err){
