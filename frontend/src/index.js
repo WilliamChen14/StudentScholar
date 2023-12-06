@@ -14,6 +14,7 @@ import BillPhoto from './assets/BillPhoto.png'
 import PhilipPhoto from './assets/Philip_photo.jpg'
 import BrianPhoto from './assets/BrianPhoto.jpg'
 import PravirPhoto from './assets/PravirPhoto.jpg'
+import SusanaPhoto from './assets/SusanaPhoto.jpg'
 import { CardBody } from 'react-bootstrap';
 
 import CreateUser from './components/CreateUser';
@@ -158,6 +159,26 @@ const Home = () => {
                 </Col>
               </Row>
 
+            </Card>
+            <Card className='team-member-card'>
+              <Row>
+                <Col xs={4}>
+                  <div className='team-member-photo'>
+                    <Card.Img src={SusanaPhoto}/>
+                  </div>
+                  <div>
+                    <p1 className='team-member-name'>Susana Sun</p1>
+                  </div>
+                  <div>
+                    <p1 className='team-member-role'>Team Member</p1>
+                  </div>
+                </Col>
+                <Col>
+                  <p1>
+                    Hello! My name is Susana Sun, and I am a second-year Computer Science major at UCLA. In my free time, I love snowboarding and learning different foreign languages.
+                  </p1>
+                </Col>
+              </Row>
             </Card>
           </div>
         </Col>
