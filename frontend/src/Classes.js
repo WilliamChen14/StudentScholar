@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Classes.css';
+import { Row } from 'react-bootstrap';
+import { Column } from './components/FooterStyle';
 
 import AuthService from './services/auth.service';
 import axios from 'axios';
@@ -89,6 +91,7 @@ function Classes() {
 
   return (
     <div className="class-container">
+      <Row>
       <div className="search-wrapper">
         <div className="input-holder">
           <input
@@ -100,24 +103,25 @@ function Classes() {
           />
         </div>
         <form id="form">
+            <p>Create a Class here</p>
             <input 
             type="text"
             className='search-input'
-            placeholder="Class Name"
+            placeholder="New Class Name"
             value={addClassName}
             onChange={(e)=> setAddClassName(e.target.value)}
             />
             <input 
             type="number"
             className='search-input'
-            placeholder="Class ID"
+            placeholder="New Class ID"
             value={addClassID}
             onChange={(e)=> setAddClassID(e.target.value)}
             />
             <input 
             type="text"
             className='search-input'
-            placeholder="Class Professor"
+            placeholder="Classes Professor"
             value={addClassProfessor}
             onChange={(e)=> setAddClassProfessor(e.target.value)}
             />
@@ -126,7 +130,6 @@ function Classes() {
             >Submit</button>
         </form>
       </div>
-
       {filteredClassData.length > 0 ? (
         filteredClassData.map((classItem, index) => (
           <ClassesBox key={index} {...classItem} />
@@ -134,6 +137,8 @@ function Classes() {
       ) : (
         <p>No classes found.</p>
       )}
+      </Row>
+
     </div>
   );
 }

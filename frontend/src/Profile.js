@@ -16,10 +16,13 @@ function ClassCodeBox({ addClass }) {
   const handleAddClass = () => {
     const curUser = AuthService.getCurrentUser();
     axios
-        .post("http://localhost:8000/add-class", { username: curUser.accessToken, userClasses:[classCode]
+        .post("http://localhost:8000/get-class", { classID:[classCode]
         })
         .then(response => {
-            console.log("nice");
+            if(response){
+                console.log(response);
+                //This Means classCode is valid so put your implementation here
+            }
         });
 
     if (classCode === '111111') {
@@ -66,6 +69,8 @@ function Profile() {
 
   const [userClassesID, setUserClassesID] = useState([]);
 
+  const [usernameText, setUsernameText] = useState("");
+
 
 
   const login = useGoogleLogin({
@@ -99,6 +104,7 @@ function Profile() {
             if (storedUser) {
             setUser(storedUser);
             setIsLoggedIn(true);
+            setUsernameText(storedUser.accessToken);
 
 
             //This gets the users array of classes and then checks if the class exists
@@ -134,9 +140,8 @@ function Profile() {
             setUserClasses(storedClasses);
             }
             const currentUser = AuthService.getCurrentUser();
-            if(currentUser){
-                console.log(currentUser);
-            }
+
+
             if (googleUser) {
                 axios
                     .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${googleUser.access_token}`, {
@@ -191,13 +196,10 @@ function Profile() {
       <div className="user-info">
         {isLoggedIn ? (
           <div>
-            <img src={profile.picture} alt="user image" />
-            <h3>User Logged in</h3>
-            <p>Name: {profile.name}</p>
-            <p>Email Address: {profile.email}</p>
+            <h2>My Profile</h2>
+            <p>Email Address: {usernameText} </p>
             <br />
             <button onClick={logout}>Log out</button>
-            <button onClick={() => console.log(userClassesID)}>Log out</button>
           </div>
         ) : (
           <button onClick={() => login()}>Sign in with Google</button>
