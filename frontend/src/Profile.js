@@ -6,7 +6,7 @@ import './Profile.css';
 
 import AuthService from './services/auth.service';
 
-function ClassCodeBox({ addClass }) {
+function ClassCodeBox({ addClass, classNames }) {
   const [classCode, setClassCode] = useState('');
 
   const handleClassCodeChange = (e) => {
@@ -19,22 +19,17 @@ function ClassCodeBox({ addClass }) {
         .post("http://localhost:8000/get-class", { classID:[classCode]
         })
         .then(response => {
-            if(response){
-                console.log(response);
-                //This Means classCode is valid so put your implementation here
-            }
+          if (response.data && response.data.className) {
+            const className = response.data.className;
+            addClass(classCode, className);
+          } else {
+            console.log("Invalid class code");
+          }
+        })
+        .catch(error => {
+          console.error("Error fetching class data", error);
         });
-
-    if (classCode === '111111') {
-      addClass('CS35L');
-      setClassCode('');
-    } else if (classCode === '222222') {
-      addClass('CS31');
-      setClassCode('');
-    } else {
-      alert('Incorrect class code. Please try again.');
-    }
-  };
+    };
 
   return (
     <div className="class-code-box">
@@ -68,7 +63,7 @@ function Profile() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [userClassesID, setUserClassesID] = useState([]);
-
+  const [classNames, setClassNames] = useState({});
   const [usernameText, setUsernameText] = useState("");
 
 
@@ -96,9 +91,13 @@ function Profile() {
 
   useEffect(
         () => {
+          let isMounted = true;
+          if (!googleUser) {
+            return;
+          }
             const storedUser = JSON.parse(localStorage.getItem('user'));
             console.log(storedUser);
-            const storedClasses = JSON.parse(localStorage.getItem('userClasses'));
+            const storedClasses = JSON.parse(localStorage.getItem('userClasses')) || [];
 
 
             if (storedUser) {
@@ -111,7 +110,8 @@ function Profile() {
             axios
                 .post("http://localhost:8000/get-user-classes", { username: storedUser.accessToken
                 })
-                .then(response => {        
+                .then(response => {
+                  if(isMounted) {        
                     setUserClassesID(response.data[0].userClasses);
                     for(let i = 0; i < response.data[0].userClasses.length; i++){
 
@@ -122,15 +122,25 @@ function Profile() {
                         axios
                             .post("http://localhost:8000/get-class", { classID: j})
                             .then(response =>{
-                                if(response){
+                                if(isMounted && response){
                                     console.log("This class is valid");
-
+                                    setClassNames((prevNames) => ({
+                                      ...prevNames,
+                                      [j]: response.data.className,
+                                    }));
                                     //this is the class name if the class id is valid
                                     console.log(response.data.className);
                                 }
                             })
+                            .catch(error => {
+                              console.error("Eroor fetching class data", error);
+                            });
                         console.log(response.data[0].userClasses[i]);
                     }
+                  }
+                })
+                .catch(error => {
+                  console.error("Error fetching user classes", error);
                 });
             }
 
@@ -165,6 +175,10 @@ function Profile() {
 
             }
 
+            return () => {
+              isMounted = false;
+            };
+
 
         },
         [ googleUser ]
@@ -175,10 +189,18 @@ function Profile() {
 
 
 
-  const addClass = (newClass) => {
-    if (!userClasses.includes(newClass)) {
-      setUserClasses((prevClasses) => [...prevClasses, newClass]);
-      localStorage.setItem('userClasses', JSON.stringify([...userClasses, newClass]));
+  const addClass = (newClassCode, newClassName) => {
+    if (!userClassesID.includes(newClassCode)) {
+      setUserClassesID((prevClasses) => [...prevClasses, newClassCode]);
+      setClassNames((prevNames) => ({
+        ...prevNames,
+        [newClassCode]: newClassName,
+      }));
+      setUserClasses((prevClasses) => [...prevClasses, newClassCode]);
+      localStorage.setItem('userClasses', JSON.stringify([...userClassesID, newClassCode]));
+    } else if (!userClasses.includes(newClassCode)){
+      setUserClasses((prevClasses) => [...prevClasses, newClassCode]);
+      localStorage.setItem('userClasses', JSON.stringify([...userClasses, newClassCode]));
     } else {
       alert('Class already exists in the list.');
     }
@@ -189,6 +211,10 @@ function Profile() {
     setUserClasses(updatedClasses);
     localStorage.setItem('userClasses', JSON.stringify(updatedClasses));
   };
+
+  const classCodeBox = (
+    <ClassCodeBox addClass={addClass} classNames={classNames} />
+  ); 
 
   return (
     <div className="container">
@@ -214,7 +240,7 @@ function Profile() {
             <ul className="class-list">
               {userClasses.map((cls, index) => (
                 <li key={index} className="class-list-item">
-                  {cls}
+                  {classNames[cls] || cls}
                   <button className="remove-button" onClick={() => removeClass(cls)}>
                     Remove
                   </button>
