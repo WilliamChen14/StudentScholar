@@ -89,7 +89,6 @@ app.post('/get-user-classes', async (req,res)=>{
             userClasses: 1,
             _id: 0
         })
-        console.log(userClasses);
         res.send(userClasses);
     }
     catch(err){
@@ -271,4 +270,48 @@ app.post('/file-upload', upload.single('file'), (req, res, next) => {
         });
     }
 });
+
+app.post('/get-class-files', async (req, res) => {
+
+    console.log("HERE")
+    const className = req.body.className;
+
+    // let className = "";
+
+    // for(let i = 0; i < classNameWithSpecialChars.length; i++){
+    //     if(i < classNameWithSpecialChars.length - 2 && classNameWithSpecialChars.substring(i, i + 2) == "%20"){
+    //         className = className + " ";
+    //         i = i + 3;
+    //     } else {
+    //         className = className + classNameWithSpecialChars[i];
+    //     }
+    // }
+
+    // console.log(className);
+  
+    try {
+        // Debugging function call: findFileById();
+        // const allFiles = await File.find({});
+      const files = await File.find({ className: className });
+      res.json(files);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Error retrieving files');
+    }
+  });
+// Debugging function 
+// const idToFind = "6570010f95e3792e65d1fb99"; // Replace with the actual _id
+
+// async function findFileById() {
+//   try {
+//     const file = await File.find({className: "MATH 33B"});
+//     if (file) {
+//       console.log('Found file:', file);
+//     } else {
+//       console.log('No file found with that id');
+//     }
+//   } catch (err) {
+//     console.error('Error finding file:', err);
+//   }
+// }
 
