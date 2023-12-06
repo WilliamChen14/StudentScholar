@@ -14,6 +14,13 @@ function ClassCodeBox({ addClass }) {
   };
 
   const handleAddClass = () => {
+    const curUser = AuthService.getCurrentUser();
+    axios
+        .post("http://localhost:8000/add-class", { username: curUser.accessToken, userClasses:[classCode]
+        })
+        .then(response => {
+            console.log("nice");
+        });
     if (classCode === '111111') {
       addClass('CS35L');
       setClassCode('');
@@ -49,7 +56,6 @@ function Notes() {
 
 function Profile() {
 
-  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [googleUser, setGoogleUser] = useState([]);
   const [profile, setProfile] = useState({});
@@ -63,6 +69,7 @@ function Profile() {
     onSuccess: (codeResponse) => {
       setGoogleUser(codeResponse);
       setIsLoggedIn(true);
+      
       //localStorage.setItem('user', JSON.stringify(codeResponse));
     },
     onError: (error) => console.log('Login Failed:', error),
@@ -78,11 +85,22 @@ function Profile() {
     localStorage.removeItem('userClasses');
   };
 
+  const philipsucks = () => {
+    axios
+      .post("http://localhost:8000/get-user-classes", { username: "billchen314@gmail.com"
+      })
+      .then(response => {
+        console.log(response);
+      });
+  }
+
   useEffect(
         () => {
             const storedUser = JSON.parse(localStorage.getItem('user'));
             console.log(storedUser);
             const storedClasses = JSON.parse(localStorage.getItem('userClasses'));
+
+
 
             if (storedUser) {
             setUser(storedUser);
@@ -106,27 +124,28 @@ function Profile() {
                     })
                     .then((res) => {
                         setProfile(res.data);
+
+                        AuthService.login(res.data.email)
+                            .then((res)=>{
+                                console.log("logged in");
+                            })
+                            .catch((err)=>{
+                                console.log('Error in logging in');
+                            })
                     })
                     .catch((err) => console.log(err));
+
             }
+
+
         },
         [ googleUser ]
+
+
     );
 
-  const checkIfThere = (e) => {
-    e.preventDefault();
-    setTempUser({ ...tempUser, username: profile.email });
 
-    console.log(tempUser.username);
 
-    AuthService.login(tempUser.username)
-            .then((res)=>{
-                console.log("logged in");
-            })
-            .catch((err)=>{
-                console.log('Error in logging in');
-            })
-  };
 
   const addClass = (newClass) => {
     if (!userClasses.includes(newClass)) {
@@ -155,7 +174,7 @@ function Profile() {
             <p>Email Address: {profile.email}</p>
             <br />
             <button onClick={logout}>Log out</button>
-            <button onClick={checkIfThere}>check</button>
+            <button onClick={philipsucks}>GetClasses Test</button>
           </div>
         ) : (
           <button onClick={() => login()}>Sign in with Google</button>
