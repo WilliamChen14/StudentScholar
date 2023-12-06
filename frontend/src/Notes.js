@@ -7,6 +7,8 @@ import AuthService from './services/auth.service';
 // import Container from "react-bootstrap/Container";
 // import Card from 'react-bootstrap/Card';
 
+
+
 const exampleMessages = [
   "These notes look great!",
   "Does anyone know what he means on pg 5?",
@@ -24,7 +26,7 @@ const examplePDFs = [
 ];
 
 const Notes = () => {
-
+  const [curClass, setCurClass] = useState("");
   useEffect(
       ()=> {
         const user = AuthService.getCurrentUser();
@@ -36,6 +38,23 @@ const Notes = () => {
           //redirect page to home
         }
       },[]
+  );
+
+  useEffect(
+    () => {
+      const currentPage = AuthService.getClassPage();
+
+      if(currentPage){
+        console.log(currentPage);
+        setCurClass(currentPage);
+      } else {
+        // did not update
+        console.log("Update didn't carry over - for class name")
+      }
+      
+    }, [AuthService.getClassPage()]
+
+
   );
 
   const [activeSection, setActiveSection] = useState("notesPDFs");
@@ -77,7 +96,7 @@ const Notes = () => {
     return (
       <>
 
-        <h1> "Class" Notes Display and Convo Page</h1>          
+        <h1> {curClass} Notes Display and Convo Page</h1>          
         <div className="body">
             <div className="leftHalf">
         
