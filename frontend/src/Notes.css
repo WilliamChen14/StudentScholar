@@ -12,39 +12,73 @@
     flex: 5;
     margin: 15px;
     border: 1px solid #000000;
-    padding: 15px;
 }
 .rightHalf {
-    flex: 3;
-    margin: 15px;
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+    margin: 10px;
     border: 1px solid #000000;
-    padding: 15px;
 
 }
 
-/* Left Half Stuff */
-.displayPDF {
-    flex: 3;
+/* Left Half */
+.displayedPDF {
+  flex: 5;
+  border: 1px solid #000000;
+  overflow: hidden;
+  background-color: #a0a0a0;
+  /* display: flex; # fixes double up problem*/ 
+  align-items: center;
+  justify-content: center; /* Center content vertically and horizontally */
+}
+.default-message {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: center;
+  font-style: italic;
+  color: #000000;
+}
+/* .displayedPDF img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+} */
+.favoriteSection {
+    flex: 1;
     border: 1px solid #000;
-    overflow: hidden;
-    background-color: #303030;
-    
-}
-.displayPDF img{
-    height: 50%;
-    object-fit: contain;
-}
-.blank {
-    flex:1;
-    border: 1px solid #000;
-
+    align-items: left;
+    justify-content: left;
 } 
-/* Header */
+.favoriteSection p {
+  font-size: 18px;
+  font-weight: normal;
+  margin-bottom: 10px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+
+}
+
+.favoriteSection button {
+  background-color: #347121;
+  color: #fff;
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+
+}
+
+.favoriteSection button:hover {
+  background-color: #129a26;
+}
+/* Right Half
+  /* Header */
 .header {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    background-color: #129a26;
+    background-color: #50d464;
     padding: 10px;
     color: #fff;
   }
@@ -59,23 +93,30 @@
     color: #fff;
   }
   
-  .section-switch:active {
-    background-color: #dbd2d2;
-    color: #303030;
+  .section-switch:hover {
+    background-color: #129a26;
+    color: #ffffff;
   }
 
-/* PDFs */
+  /* PDFs */
 .notesPDFs {
     display: grid;
     grid-template-columns: repeat(2,1fr);
-    gap: 10px;
+    gap: 5px;
+    padding: 5px;
 }
 .pdf-link {
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #766767;
     cursor: pointer;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    border-radius: 5px; /* Adjust the value to control the roundness */
+
 }
-/* Discussion */
+.pdf-link:hover {
+  background-color: #f0f0f0; /* Add a background color on hover if desired */
+}
+  /* Discussion */
   .discussion {
     display: flex;
     flex-direction: column;
@@ -84,6 +125,8 @@
     padding: 10px;
     border: 1px solid #ccc;
     text-align: left;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+
   }
   .messageBox:nth-of-type(even) {
     background-color: #acf6a3df; /* Adjust the gray color as needed */
