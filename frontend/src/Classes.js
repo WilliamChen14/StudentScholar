@@ -16,7 +16,10 @@ function ClassesBox({ title, description, image, link }) {
       <div className="class-details">
         <h2>{title}</h2>
         <p>{description}</p>
-        <Link to={link}>
+        <Link to={link} onClick={() => {
+            AuthService.setClassPage(title);
+            alert("Switching to: " + title);
+          }}>
           <button>Go to Notes</button>
         </Link>
       </div>
@@ -46,20 +49,20 @@ function Classes() {
 
   const classData = [
     {
-      title: 'Class 1',
-      description: 'Description for class 1.',
+      title: 'COM SCI M51A',
+      description: 'Description for COM SCI M51A.',
       image: 'image1.jpg',
       link: '/Notes',
     },
     {
-      title: 'Class 2',
-      description: 'Description for class 2.',
+      title: 'COM SCI 35L',
+      description: 'Description for COM SCI 35L.',
       image: 'image2.jpg',
       link: '/Notes',
     },
     {
-      title: 'Class 3',
-      description: 'Description for class 3.',
+      title: 'MATH 33B',
+      description: 'Description for MATH 33B.',
       image: 'image3.jpg',
       link: '/Notes',
     },
