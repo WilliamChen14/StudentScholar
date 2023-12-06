@@ -195,10 +195,37 @@ app.post('/file-upload', upload.single('file'), (req, res, next) => {
     /*....*/ 
 
     console.log(req.file)
+    console.log(req.body)
 
     if (!req.file) {
         return res.status(400).send('No file uploaded.');
     }
+
+    const fileData = {
+        fileName: req.file.originalname,
+        mimetype: req.file.mimetype,
+        size: req.file.size,
+        className: req.body.className,
+        description: req.body.description,
+        uploaderName: req.body.uploaderName
+        // You can include any other relevant file metadata here
+      };
+    console.log(fileData);
+    
+    const newFile = new File(fileData);
+
+    newFile.save()
+    .then(() => res.status(201).send({
+      message: 'File new layout uploaded successfully',
+      file: fileData
+    }))
+    .catch(err => {
+      console.error(err);
+      res.status(500).send({
+        message: 'Error uploading file new layout',
+        error: err
+      });
+    });
 
     try {
         // The file is automatically stored in MongoDB using GridFS,

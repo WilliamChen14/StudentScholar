@@ -3,16 +3,15 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema;
 
 const fileSchema = new Schema({
-    fileType: {
+    mimetype: {
         type: String,
-        enum: ['pdf', 'docx'],
         required: true
     },
     fileName: {
         type: String,
         required: true
     },
-    uploadersUsername: {
+    uploaderName: {
         type: String,
         required: true
     },
@@ -20,9 +19,12 @@ const fileSchema = new Schema({
         type: String,
         required: true
     },
-    dateUploaded: {
-        type: Date,
+    description: {
+        type: String,
         required: true
+    }, 
+    size: {
+        type: Number
     }
 
 }, {timestamps: true});
