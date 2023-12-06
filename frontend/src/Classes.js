@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './Classes.css';
 
 import AuthService from './services/auth.service';
+import axios from 'axios';
 
 
 function ClassesBox({ title, description, image, link }) {
@@ -25,6 +26,23 @@ function ClassesBox({ title, description, image, link }) {
 
 function Classes() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [addClassID, setAddClassID] = useState([]);
+  const [addClassName, setAddClassName] = useState([]);
+  const [addClassProfessor, setAddClassProfessor] = useState([]);
+
+  const SubmitAddClass = (e) =>{
+    e.preventDefault();
+
+    console.log(addClassID);
+    console.log(addClassName);
+
+    axios
+        .post("http://localhost:8000/create-class", { classID: addClassID, className: addClassName, classProf: addClassProfessor
+        })
+        .then(response => {
+            console.log("shouldve added unless code already exists");
+        });
+  }
 
   const classData = [
     {
@@ -81,6 +99,32 @@ function Classes() {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
+        <form id="form">
+            <input 
+            type="text"
+            className='search-input'
+            placeholder="Class Name"
+            value={addClassName}
+            onChange={(e)=> setAddClassName(e.target.value)}
+            />
+            <input 
+            type="number"
+            className='search-input'
+            placeholder="Class ID"
+            value={addClassID}
+            onChange={(e)=> setAddClassID(e.target.value)}
+            />
+            <input 
+            type="text"
+            className='search-input'
+            placeholder="Class Professor"
+            value={addClassProfessor}
+            onChange={(e)=> setAddClassProfessor(e.target.value)}
+            />
+            <button
+              onClick={SubmitAddClass}
+            >Submit</button>
+        </form>
       </div>
 
       {filteredClassData.length > 0 ? (

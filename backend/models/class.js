@@ -7,6 +7,10 @@ const classSchema = new Schema({
         type: String,
         required: true
     },
+    classID: {
+        type: String,
+        required: true
+    },
     classProf: {
         type: String,
         required: true
@@ -20,11 +24,7 @@ const classSchema = new Schema({
     classFiles: [{
         type: Schema.Types.ObjectId,
         ref: 'File'
-    }],
-    classUsernames: {
-        type: [String],
-        required: true
-    }
+    }]
 
 }, {timestamps: true});
 

@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const User = require("./models/user");
 const File = require("./models/file");
+const Class = require("./models/class");
 
 const { v4: uuidv4 } = require('uuid');
 
@@ -104,6 +105,34 @@ app.post('/add-file', (req,res)=>{
             console.log(err);
         });
 })
+
+app.post('/create-class', async (req,res)=>{
+
+    const tempClass = await Class.findOne({classID: req.body.classID});
+    if(tempClass){
+        console.log("classid already exists");
+    }
+    else{
+        Class.create(req.body)
+        .then((result) =>{
+            res.send(result);
+        })
+        .catch((err)=>{
+            console.log(err);
+        });
+    }
+})
+
+app.post('/get-class', async (req,res)=>{
+    const tempClass = await Class.findOne({classID: req.body.classID});
+    if(tempClass){
+        res.send(tempClass);
+    }
+    else{
+        console.log('Class doesnt exist');
+    }
+})
+
 
 app.delete('/delete-users', async (req,res) =>{
 
