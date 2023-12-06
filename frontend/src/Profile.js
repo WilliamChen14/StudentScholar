@@ -186,6 +186,18 @@ function Profile() {
 
     );
 
+    const saveClasses = () =>{
+      console.log(userClassesID);
+      axios
+        .post("http://localhost:8000/add-class", {username: usernameText, userClasses: userClassesID})
+        .then((response)=>{
+          console.log(response);
+        })
+        .catch((err)=>{
+          console.log(err);
+        })
+    }
+
 
 
 
@@ -246,6 +258,7 @@ function Profile() {
                   </button>
                 </li>
               ))}
+              <button onClick={saveClasses}>Save</button>
             </ul>
           </div>
         </div>
