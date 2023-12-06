@@ -92,9 +92,7 @@ function Profile() {
   useEffect(
         () => {
           let isMounted = true;
-          if (!googleUser) {
-            return;
-          }
+          
             const storedUser = JSON.parse(localStorage.getItem('user'));
             console.log(storedUser);
             const storedClasses = JSON.parse(localStorage.getItem('userClasses')) || [];
