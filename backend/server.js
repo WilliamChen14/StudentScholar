@@ -68,49 +68,31 @@ app.post('/login', async (req, res) => {
     }
 });
 
-app.get('/add-user', (req,res) => {
-    const user = new User({
-        username: "bill1",
-        password: "bill1"
-    })
-
-    user.save()
-        .then((result) =>{
-            res.send(result);
-        })
-        .catch((err) =>{
-            console.log(err);
-        });
+app.post('/add-class', async (req, res) => {
+    try {
+        console.log(req.body.userClasses);
+        const tempUser = await User.findOneAndUpdate({username: req.body.username},
+            {
+                userClasses: req.body.userClasses
+            }
+        );
+    }
+    catch(err){
+        console.log(err);
+    }
 })
 
-app.get('/all-users', (req,res)=>{
-    User.find()
-        .then((result) =>{
-            res.send(result);
+app.post('/get-user-classes', async (req,res)=>{
+    try {
+        const userClasses = await User.find({username: req.body.username},{
+            userClasses: 1,
+            _id: 0
         })
-        .catch((err) =>{
-            console.log(err);
-        });
-})
-
-app.get('/single-user', (req,res)=>{
-    User.findById('6559222ed0daf78b436c442c')
-        .then((result) =>{
-            res.send(result);
-        })
-        .catch((err) =>{
-            console.log(err);
-        });
-})
-
-app.post('/add-user', (req,res)=>{
-    User.create(req.body)
-        .then((result) =>{
-            res.send(result);
-        })
-        .catch((err) =>{
-            console.log(err);
-        });
+        res.send(userClasses);
+    }
+    catch(err){
+        console.log(err);
+    }
 })
 
 app.post('/add-file', (req,res)=>{
