@@ -13,7 +13,7 @@ const userSchema = new Schema({
         type: String
     },
     userClasses: [{
-        type: Schema.Types.ObjectId,
+        type: String,
         ref: 'Class'
     }],
     userFiles: [{

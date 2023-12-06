@@ -17,6 +17,14 @@ class AuthService {
       });
   }
 
+  setClassPage(classID) {
+    localStorage.setItem('class', JSON.stringify(classID));
+  }
+
+  getClassPage(){
+    return JSON.parse(localStorage.getItem('class'));
+  }
+
   logout() {
     localStorage.removeItem("user");
   }
