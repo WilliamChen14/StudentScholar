@@ -105,7 +105,7 @@ const Home = () => {
                 </Col>
                 <Col>
                   <p1 className='member-description'>
-                  Hi, my name is Bill Chen. I am a Computer Science and Engineering Major at UCLA. My favorite animes are 'Domestic Girlfriend' and 'Girlfriend Girlfriends'. Aint no way you dissing me! In my free time I like to sweat against my friends in word hunt and expore town without a place in mind.
+                  Hi, my name is Bill Chen. I am a Computer Science and Engineering Major at UCLA. Aint no way you dissing me! In my free time I like to sweat against my friends in word hunt and expore town without a place in mind.
                   </p1>
                 </Col>
               </Row>
