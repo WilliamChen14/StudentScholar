@@ -40,10 +40,4 @@
     transform: translateY(-50%);
     cursor: pointer;
   }
-
-  .create-class {
-    padding-top: 20px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: medium;
-  }
   
