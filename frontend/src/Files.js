@@ -7,20 +7,10 @@ import AuthService from './services/auth.service';
 
 const classes = ["COM SCI M51A", "COM SCI 35L", "MATH 33B", "STATS 100A"];
 
-function ClassList() {
-
-  return (
-    <>
-      {classes.map((classItem, val) => {
-        return (
-          <option> {classItem} </option> /*  value={val} id={classItem} */ 
-        )
-      })}
-    </>
-  );
-}
 
 function Files() {
+  const [className, setClassName] = useState([]);
+  const [classIDs, setClassIDs] = useState([]);
 
   useEffect(
     ()=> {
@@ -35,6 +25,20 @@ function Files() {
       
       },[]
   );
+/*
+  const ClassList = () => {
+    return (
+      <>
+        {classNames.map((classItem, val) => {
+          return (
+            <option> {classItem} </option>   value={val} id={classItem} *
+          )
+        })}
+      </>
+    );
+  }
+  */
+
   const [file, setFile] = useState('');
 
   function submitForm() {
@@ -51,13 +55,13 @@ function Files() {
     const formData = new FormData();
 
     formData.append("description", description.value);
-    formData.append("className", className.value);
+    formData.append("className", className);
     formData.append("uploaderName", uploaderName);
     formData.append("file", fileSelected.files[0]);
     alert(fileSelected.files[0].name);
     alert(fileSelected.files[0].size, 'bytes');
     alert(className)
-    alert(className.value)
+    //alert(className.value)
     alert(uploaderName);
 
     axios.post("http://localhost:8000/file-upload", formData)
@@ -105,10 +109,14 @@ function Files() {
             </div>
             <div className='class-area'>
 
-              <h2>Classes</h2>
-              <select id="dropdown-basic" title='Select a class'>
-                <ClassList></ClassList>
-              </select>
+              <h2>Class</h2>
+              <input 
+              type="text"
+              id = "dropdown-basic"
+              placeholder="Class Name"
+              value={className}
+              onChange={(e)=> setClassName(e.target.value)}
+              />
             </div>
           </div>
         </div>
