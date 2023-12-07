@@ -4,7 +4,7 @@
     font-size: xx-large;
     font-weight: bold;
     color: rgb(246, 120, 3);
-    background-color: rgb(59, 59, 99);
+    background-color: rgb(69, 87, 141);
     padding-top: 20px; 
     padding-bottom: 50px;
 
@@ -50,7 +50,7 @@
 }
 
 .my-files {
-    background-color: rgb(59, 59, 99);
+    background-color: rgb(69, 87, 141);
     align-items: center;
     width: 100%;
     padding-top: 10px;

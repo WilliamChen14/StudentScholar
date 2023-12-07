@@ -29,7 +29,7 @@ body {
   flex: 1;
   flex-direction: row; 
   border-radius: 2px;
-  background: rgb(59, 59, 99);
+  background: rgb(69, 87, 141);
   padding: 20px;
   text-align: left;
   margin-left: 0px;
@@ -62,7 +62,7 @@ body {
   flex: 1;
   flex-direction: column;
   border-radius: 2px;
-  background: rgb(59, 59, 99);
+  background: rgb(69, 87, 141);
   padding-top: 20px;
   text-align: left;
   margin-right: 0px;
