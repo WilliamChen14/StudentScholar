@@ -185,7 +185,8 @@ function Classes() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-        </div>*/
+        </div>
+      */
   return (
     <div className="class-container">
       <Row>
