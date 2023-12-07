@@ -1,61 +1,91 @@
+body { 
+  height: 100%;
+  margin: 0;
+  padding-top: 10px;
+}
+
 .image {
   height: 100%;
   width: 100%;
+  margin-bottom: 20px;
+}
+
+.all {
+  height: 100%;
+  margin-bottom: 50px;
 }
 
 .body {
   padding-top: 25px;
-  height: fit-content;
+  padding-bottom: 25px;
 }
 
 .row-container {
-  height:fit-content;
-  margin-left: 0px;
-  margin-right: 0px;
+  margin-left: 50px;
+  margin-right: 50px;
 }
 
 .about-us-container {
-  height:fit-content;
+  flex: 1;
+  flex-direction: row; 
   border-radius: 2px;
-  background: #d9d9d9;
+  background: rgb(69, 87, 141);
   padding: 20px;
   text-align: left;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 0px;
 }
+
 .about-us-header {
+  margin-left: 20px;
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: xx-large;
+  font-weight: bold;
+  color: rgb(246, 120, 3);
+}
+
+.about-us-description {
+  margin-left: 20px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: large;
   font-weight: normal;
+  color: white;
 }
 
 .update-date {
+  margin-left: 20px; 
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: small;
   color: gray;
 }
 
 .meet-the-team-container {
-  height:fit-content;
+  flex: 1;
+  flex-direction: column;
   border-radius: 2px;
-  background: #d9d9d9;
-  padding: 20px;
+  background: rgb(69, 87, 141);
+  padding-top: 20px;
   text-align: left;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-right: 0px;
+  max-height: 100%;
 }
+
 .meet-the-team-header {
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: xx-large;
-  font-weight: normal;
+  font-weight: bold;
+  color: rgb(246, 120, 3);
 }
 
 .team-member-card {
   padding: 20px;
+  margin-bottom: 15px;
+  max-height: 330px;
+  width: 92%;
 }
 
 .team-member-photo {
-  padding-right: 10px;
+  width: 85%;
+  height: 85%;
 }
 
 .team-member-name {
@@ -67,5 +97,11 @@
 .team-member-role {
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: small;
+  font-weight: normal;
+}
+
+.member-description {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: large;
   font-weight: normal;
 }
