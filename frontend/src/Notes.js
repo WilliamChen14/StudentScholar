@@ -29,7 +29,7 @@ const examplePDFs = [
 
 const Notes = () => {
   const [curClass, setCurClass] = useState("");
-
+  
   const [fileMetadata, setFileMetadata] = useState([]);
 
   const [fileDescription, setFileDescription] = useState("");
@@ -40,6 +40,7 @@ const Notes = () => {
   
     // Construct the URL with the encoded class name
     const url = `http://localhost:8000/get-class-files`;
+    
     console.log(url);
     // Make the GET request
     axios.post(url, { className: className })
@@ -111,6 +112,36 @@ const Notes = () => {
   };
 
   const openPDFInFrame = (pdf) => {
+
+    console.log("File name we're searching for: " + pdf.name);
+    axios.post("http://localhost:8000/get-file-contents", { fileName: pdf.name }, {responseType: 'blob'})
+      .then(response => {
+
+ 
+        const blob = new Blob([response.data], { type: 'application/pdf' }); // Ensure correct MIME type
+        const downloadUrl = window.URL.createObjectURL(blob);
+
+        const iframe = document.getElementById('mainIFrame');
+        iframe.src = downloadUrl;
+
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.setAttribute('download', 'downloadedfile.pdf'); // Set a filename
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(downloadUrl);
+        
+        
+
+        console.log('File Data Received, how to display?: ', response.data);
+       
+      })
+      .catch(error => {
+        console.error('Did not get file data', error);
+      });
+    
+
     setSelectedPDF(pdf);
     const displayedPDFDiv = document.querySelector('.displayedPDF');
 
@@ -125,18 +156,18 @@ const Notes = () => {
     }
 
     //if a pdf is chosen
-    if (pdf) {
-      //clear existing content in the displayedPDF div
-      displayedPDFDiv.innerHTML = '';
-      //create a new iframe element
-      const pdfIframe = document.createElement('iframe');
-      pdfIframe.title = 'Selected PDF';
-      pdfIframe.src = pdf.link;
-      pdfIframe.width = '100%';
-      pdfIframe.height = '500px';
-      //Append the iframe to the displayedPDF div
-      displayedPDFDiv.appendChild(pdfIframe);
-    }
+    // if (pdf) {
+    //   //clear existing content in the displayedPDF div
+    //   displayedPDFDiv.innerHTML = '';
+    //   //create a new iframe element
+    //   const pdfIframe = document.createElement('iframe');
+    //   pdfIframe.title = 'Selected PDF';
+    //   pdfIframe.src = pdf.link;
+    //   pdfIframe.width = '100%';
+    //   pdfIframe.height = '500px';
+    //   //Append the iframe to the displayedPDF div
+    //   displayedPDFDiv.appendChild(pdfIframe);
+    // }
 
     // else {
     // // If no PDF is selected, display a default message //IDK WHY THIS DOESNT WORK
@@ -165,6 +196,7 @@ const Notes = () => {
                     src={selectedPDF.link}
                     width="100%"
                     height="500px"
+                    id="mainIFrame"
                   />
                 )}
               </div>
