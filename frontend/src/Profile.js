@@ -73,7 +73,7 @@ function Profile() {
     onSuccess: (codeResponse) => {
       setGoogleUser(codeResponse);
       setIsLoggedIn(true);
-      setUsernameText(codeResponse, accessToken);
+      setUsernameText(codeResponse.accessToken);
       localStorage.setItem('user', JSON.stringify(codeResponse));
     },
     onError: (error) => console.log('Login Failed:', error),
@@ -222,6 +222,22 @@ function Profile() {
     const updatedClasses = userClasses.filter((cls) => cls !== removedClass);
     setUserClasses(updatedClasses);
     localStorage.setItem('userClasses', JSON.stringify(updatedClasses));
+
+    const currentUser = AuthService.getCurrentUser();
+    if (currentUser) {
+      const updatedUserClasses = updatedClasses.map((cls) => parseInt(cls));
+      axios
+        .post("http://localhost:8000/update-user-classes", {
+          username: currentUser.accessToken,
+          userClasses: updatedUserClasses,
+        })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error("Error updating user classes", error);
+        });
+    }
   };
 
   const classCodeBox = (
