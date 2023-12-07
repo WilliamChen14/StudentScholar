@@ -43,7 +43,6 @@ const Notes = () => {
 
   function fetchFilesForClass(className) {
     // Encode the class name to ensure the URL is correctly formatted
-    
   
     // Construct the URL with the encoded class name
     const url = `http://localhost:8000/get-class-files`;
@@ -96,8 +95,13 @@ const Notes = () => {
             setCurClassName(response.data.className);
             setClassMessages(response.data.classConversation);
             if(response.data.className){
+              console.log("Fetching files for class! We're trying in next 2 line")
               setCurClass(response.data.className);
-              fetchFilesForClass(response.data.classID);
+
+              console.log(response.data.className);
+
+              fetchFilesForClass(response.data.className);
+              
             }
         })
         .catch((err) =>{
@@ -141,10 +145,10 @@ const Notes = () => {
     setActiveSection(section);
   };
 
-  const openPDFInFrame = (pdf) => {
+  const openPDFInFrame = (pdf_name) => {
 
-    console.log("File name we're searching for: " + pdf.name);
-    axios.post("http://localhost:8000/get-file-contents", { fileName: pdf.name }, {responseType: 'blob'})
+    console.log("File name we're searching for: " + pdf_name);
+    axios.post("http://localhost:8000/get-file-contents", { fileName: pdf_name }, {responseType: 'blob'})
       .then(response => {
 
  
@@ -172,13 +176,13 @@ const Notes = () => {
       });
     
 
-    setSelectedPDF(pdf);
+    setSelectedPDF(pdf_name);
     const displayedPDFDiv = document.querySelector('.displayedPDF');
 
     for(let i = 0; i < fileMetadata.length; i++){
       console.log("Class File's Name" + fileMetadata[i].fileName)
       
-      if(fileMetadata[i].fileName == pdf.name){
+      if(fileMetadata[i].fileName == pdf_name){
         console.log(fileMetadata[i].description);
         setFileDescription(fileMetadata[i].description);
         break;
@@ -258,9 +262,9 @@ const Notes = () => {
 
               {activeSection === "notesPDFs" ? (
                 <div className="notesPDFs">
-                  {examplePDFs.map((pdf, index) => (
-                    <div key={index} className="pdf-link" onClick={() => openPDFInFrame(pdf)}>
-                      {pdf.name}
+                  {fileMetadata.map((eachFileMetadata) => (
+                    <div className="pdf-link" onClick={() => openPDFInFrame(eachFileMetadata.fileName)}>
+                      {eachFileMetadata.fileName}
                     </div>
                   ))}
                 </div>
