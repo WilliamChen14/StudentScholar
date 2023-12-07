@@ -93,6 +93,23 @@ function Notes() {
       });
   };
 
+  function searchUploadedNotes(){
+    let searchQuery = document.getElementById("searchQueryInput").value;
+    for(let i = 0; i < userFilesMetadata.length; i++){
+      console.log(userFilesMetadata[i].fileName);
+      if(userFilesMetadata[i].fileName === searchQuery){
+        alert("You uploaded this file!");
+        break;
+      }
+      if(i == userFilesMetadata.length - 1){
+        
+        alert("Didn't find this file in your uploads. Perhaps a classmate did?")
+        
+      }
+    }
+              
+  }
+
     return (
         <div className="my-notes">
             <p id="title"> My Pages/Favorited</p>
@@ -102,11 +119,16 @@ function Notes() {
 						<div className="profile-buttons">
 
               {userFilesMetadata.map((eachFileMetadata) => (
-                      <div className="pdf-link" onClick={() => onButtonClick(eachFileMetadata.fileName)}>
+                      <div className="pdf-link" onClick={() => onButtonClick(eachFileMetadata.fileName)} style={{marginBottom: "15px", border: "3px solid black"}}>
                         {eachFileMetadata.fileName}
                       </div>
               ))}
               
+            </div>
+
+            <div style={{display: "flex", flexDirection: "row"}}>
+              <input type="text" id="searchQueryInput" style={{marginRight: "5px"}}></input>
+              <button onClick={searchUploadedNotes}>Search!</button>
             </div>
         </div>
     );

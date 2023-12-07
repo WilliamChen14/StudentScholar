@@ -73,6 +73,15 @@ const Home = () => {
             <br></br>
             <br></br>
             Just simply set up a profile with your email, add classes via their respective class codes, and you are all set!
+            Under the Classes page of our website, you can view a comprehensive list of classes for which notes have been 
+            posted by students who are taking or have taken the classes. The list of notes provide students a reference 
+            of what content past students have learned, which can help if there is a lack of relevant resources available
+            besides materials the professor has posted. From class notes to exam solutions, students can access a variety of 
+            resources which will aid in their learning.
+            <br></br>
+            <br></br>
+            Furthermore, materials are managed by us at the end of each quarter so relevant resources can be passed on to 
+            future students of each class! Hope you enjoy learning in your courses and happy studying!
             </p>
           </div>
           
@@ -96,7 +105,7 @@ const Home = () => {
                 </Col>
                 <Col>
                   <p1 className='member-description'>
-                  Hi, my name is Bill Chen. I am a Computer Science and Engineering Major at UCLA. My favorite animes are 'Domestic Girlfriend' and 'Girlfriend Girlfriends'. Aint no way you dissing me! In my free time I like to sweat against my friends in word hunt and expore town without a place in mind.
+                  Hi, my name is Bill Chen. I am a Computer Science and Engineering Major at UCLA. Aint no way you dissing me! In my free time I like to sweat against my friends in word hunt and expore town without a place in mind.
                   </p1>
                 </Col>
               </Row>

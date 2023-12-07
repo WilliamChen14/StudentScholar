@@ -15,14 +15,15 @@ const FooterComponent = () => {
 	return (
 		<Box>
 			<img src={ScholarShareLogo} style={{
-				height: "20%",
-				width: "20%",
+				height: "16%",
+				width: "16%",
 			}}></img>
 			<h1
 				style={{
 					color: "white",
 					textAlign: "center",
 					marginTop: "10px",
+					marginBottom: "50px"
 				}}
 			>
 				StudentScholar
@@ -30,57 +31,15 @@ const FooterComponent = () => {
 			<FooterContainer>
 				<Row>
 					<Column>
-						<Heading>About Us</Heading>
-						<FooterLink href="#">
-							Aim
-						</FooterLink>
-						<FooterLink href="#">
-							Vision
-						</FooterLink>
-						<FooterLink href="#">
-							Testimonials
-						</FooterLink>
-					</Column>
-					<Column>
-						<Heading>Services</Heading>
-						<FooterLink href="#">
-							Writing
-						</FooterLink>
-						<FooterLink href="#">
-							Internships
-						</FooterLink>
-						<FooterLink href="#">
-							Coding
-						</FooterLink>
-						<FooterLink href="#">
-							Teaching
-						</FooterLink>
-					</Column>
-					<Column>
 						<Heading>Contact Us</Heading>
-						<FooterLink href="#">
-							Uttar Pradesh
-						</FooterLink>
-						<FooterLink href="#">
-							Ahemdabad
-						</FooterLink>
-						<FooterLink href="#">
-							Indore
-						</FooterLink>
-						<FooterLink href="#">
-							Mumbai
-						</FooterLink>
-					</Column>
-					<Column>
-						<Heading>Social Media</Heading>
-						<FooterLink href="#">
+						<FooterLink href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">
 							<i className="fab fa-facebook-f">
 								<span
 									style={{
 										marginLeft: "10px",
 									}}
 								>
-									Facebook
+									Scholar Tutorial
 								</span>
 							</i>
 						</FooterLink>
@@ -91,29 +50,57 @@ const FooterComponent = () => {
 										marginLeft: "10px",
 									}}
 								>
+									studScholar@gmail.com
+								</span>
+							</i>
+						</FooterLink>
+					</Column>
+					<Column>
+						<Heading>Social Media</Heading>
+						<FooterLink href="https://www.facebook.com/" target="_blank">
+							<i className="fab fa-facebook-f">
+								<span
+									style={{
+										marginLeft: "10px",
+									}}
+								>
+									Facebook
+								</span>
+							</i>
+						</FooterLink>
+						<FooterLink href="https://www.instagram.com/" target="_blank">
+							<i className="fab fa-instagram">
+								<span
+									style={{
+										marginLeft: "10px",
+									}}
+								>
 									Instagram
 								</span>
 							</i>
 						</FooterLink>
-						<FooterLink href="#">
-							<i className="fab fa-twitter">
+					</Column>
+					<Column>
+						<Heading>Links</Heading>
+						<FooterLink href="https://registrar.ucla.edu/academics/course-descriptions" target="_blank">
+							<i className="fab fa-facebook-f">
 								<span
 									style={{
 										marginLeft: "10px",
 									}}
 								>
-									Twitter
+									References
 								</span>
 							</i>
 						</FooterLink>
-						<FooterLink href="#">
-							<i className="fab fa-youtube">
+						<FooterLink href="https://pot-cognac.tumblr.com/" target="_blank">
+							<i className="fab fa-instagram">
 								<span
 									style={{
 										marginLeft: "10px",
 									}}
 								>
-									Youtube
+									Experts
 								</span>
 							</i>
 						</FooterLink>
