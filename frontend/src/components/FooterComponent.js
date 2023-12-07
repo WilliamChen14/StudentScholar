@@ -82,7 +82,7 @@ const FooterComponent = () => {
 					</Column>
 					<Column>
 						<Heading>Links</Heading>
-						<FooterLink href="https://fortnite.fandom.com/wiki/Dance_Moves" target="_blank">
+						<FooterLink href="https://registrar.ucla.edu/academics/course-descriptions" target="_blank">
 							<i className="fab fa-facebook-f">
 								<span
 									style={{

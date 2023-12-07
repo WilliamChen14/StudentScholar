@@ -73,6 +73,15 @@ const Home = () => {
             <br></br>
             <br></br>
             Just simply set up a profile with your email, add classes via their respective class codes, and you are all set!
+            Under the Classes page of our website, you can view a comprehensive list of classes for which notes have been 
+            posted by students who are taking or have taken the classes. The list of notes provide students a reference 
+            of what content past students have learned, which can help if there is a lack of relevant resources available
+            besides materials the professor has posted. From class notes to exam solutions, students can access a variety of 
+            resources which will aid in their learning.
+            <br></br>
+            <br></br>
+            Furthermore, materials are managed by us at the end of each quarter so relevant resources can be passed on to 
+            future students of each class! Hope you enjoy learning in your courses and happy studying!
             </p>
           </div>
           
