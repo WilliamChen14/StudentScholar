@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+
+
 import './Profile.css';
 
 import AuthService from './services/auth.service';
@@ -75,6 +76,7 @@ function Profile() {
       setIsLoggedIn(true);
       setUsernameText(codeResponse.accessToken);
       localStorage.setItem('user', JSON.stringify(codeResponse));
+      localStorage.setItem('userClasses', JSON.stringify([...userClassesID]));
     },
     onError: (error) => console.log('Login Failed:', error),
   });
@@ -96,6 +98,9 @@ function Profile() {
           let isMounted = true;
           
             const storedUser = JSON.parse(localStorage.getItem('user'));
+            if(storedUser){
+              setUsernameText(storedUser.accessToken);
+            }
             console.log(storedUser);
             const storedClasses = JSON.parse(localStorage.getItem('userClasses')) || [];
 
