@@ -108,29 +108,6 @@ const Notes = () => {
           console.log("Update didn't carry over - for class name");
         })
 
-      /*
-
-      if(curClassName){
-        console.log(curClassName);
-        setCurClass(curClassName);
-
-        // let newString = "";
-
-        // for(let i = 0; i < currentPage.length; i++){
-        //   if(currentPage[i] == " "){
-        //     newString = newString + "%20";
-        //   } else {
-        //     newString = newString + currentPage[i];
-        //   }
-        // }
-
-        fetchFilesForClass(curClassName);
-
-      } else {
-        // did not update
-        console.log("Update didn't carry over - for class name")
-        
-      }*/
 
       
       
@@ -188,32 +165,8 @@ const Notes = () => {
         break;
       }
     }
-
-    //if a pdf is chosen
-    // if (pdf) {
-    //   //clear existing content in the displayedPDF div
-    //   displayedPDFDiv.innerHTML = '';
-    //   //create a new iframe element
-    //   const pdfIframe = document.createElement('iframe');
-    //   pdfIframe.title = 'Selected PDF';
-    //   pdfIframe.src = pdf.link;
-    //   pdfIframe.width = '100%';
-    //   pdfIframe.height = '500px';
-    //   //Append the iframe to the displayedPDF div
-    //   displayedPDFDiv.appendChild(pdfIframe);
-    // }
-
-    // else {
-    // // If no PDF is selected, display a default message //IDK WHY THIS DOESNT WORK
-    //   displayedPDFDiv.innerHTML = '<div class="default-message">Choose a PDF for this class.</div>';
-
-    // }
   };
-  const addToFavorites = () => {
-    if(selectedPDF) {
-      //add logic to add to favorites in some state or storage
-    }
-  };
+
 
     return (
       <>
@@ -239,7 +192,7 @@ const Notes = () => {
                 <p>
                   Like this Note in particular?
                 </p>
-                <button onClick={addToFavorites}>{fileDescription}</button>
+                <button>{fileDescription}</button>
               </div>
 
             </div>
@@ -270,13 +223,14 @@ const Notes = () => {
                 </div>
               ) : (
                 <div className="discussion">
+                <div className="allMessages">
                   {classMessages.map((message, index) => (
                     <div key={index} className="messageBox">
                       {message}
                     </div>
                   ))}
-
-                  <div>
+                </div>
+                <div className="insertTextBox">
                   <input
                     type="text"
                     placeholder="Type Here"

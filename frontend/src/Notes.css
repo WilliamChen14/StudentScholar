@@ -120,13 +120,19 @@
   .discussion {
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
+  }
+  .allMessages {
+    display: flex;
+    flex-direction: column;
+    flex: 15;
+    overflow-y: auto;
   }
   .messageBox {
     padding: 10px;
     border: 1px solid #ccc;
     text-align: left;
     font-family: Georgia, 'Times New Roman', Times, serif;
-
   }
   .messageBox:nth-of-type(even) {
     background-color: #acf6a3df; /* Adjust the gray color as needed */
@@ -135,4 +141,9 @@
   /* Apply white background to odd-indexed message boxes */
   .messageBox:nth-of-type(odd) {
     background-color: #ffffff; /* Adjust the white color as needed */
+  }
+  .insertTextBox {
+    display: flex;
+    flex: 1;
+    padding: 10px;
   }
