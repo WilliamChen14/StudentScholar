@@ -17,7 +17,6 @@ import PravirPhoto from './assets/PravirPhoto.jpg'
 import SusanaPhoto from './assets/SusanaPhoto.jpg'
 import { CardBody } from 'react-bootstrap';
 
-import CreateUser from './components/CreateUser';
 
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import AuthService from './services/auth.service';

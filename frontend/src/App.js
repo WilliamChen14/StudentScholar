@@ -9,7 +9,6 @@ import Profile from "./Profile";
 import Notes from "./Notes"; 
 import FooterComponent from './components/FooterComponent';
 
-import EventBus from './common/EventBus';
 
 import React, {Component, useEffect} from "react";
 import AuthService from './services/auth.service';

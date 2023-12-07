@@ -4,8 +4,6 @@ const User = require("./models/user");
 const File = require("./models/file");
 const Class = require("./models/class");
 
-const { v4: uuidv4 } = require('uuid');
-
 
 const multer = require('multer');
 
