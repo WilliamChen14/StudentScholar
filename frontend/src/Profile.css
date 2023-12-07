@@ -16,6 +16,7 @@
     border: 1px solid #ccc;
     background-color: #D3D3D3;
     margin-right: 20px;
+    background-color: rgb(69, 87, 141);
   }
   
   .my-classes {
@@ -24,6 +25,7 @@
 
   .user-info {
     order: -1;
+    background-color: rgb(69, 87, 141);
   }
   
   .class-code-box {
@@ -56,6 +58,7 @@
     padding: 15px;
     max-width: 300px;
     background-color: #f9f9f9;
+    background-color: rgb(69, 87, 141);
   }
   
   .my-classes-container h2 {
