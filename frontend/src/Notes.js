@@ -188,11 +188,15 @@ const Notes = () => {
                 )}
               </div>
 
-              <div className="favoriteSection">
-                <p>
-                  Like this Note in particular?
-                </p>
-                <button>{fileDescription}</button>
+              <div className="description">
+                <div className="descriptionHeader">
+                  <p>
+                    File Description
+                  </p>
+                </div>
+                <div className="descriptionText">
+                  {fileDescription}
+                </div>
               </div>
 
             </div>
