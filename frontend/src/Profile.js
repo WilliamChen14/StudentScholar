@@ -187,9 +187,10 @@ function Profile() {
     );
 
     const saveClasses = () =>{
+      const visibleClasses = userClasses.filter((cls) => userClassesID.includes(cls));
       console.log(userClassesID);
       axios
-        .post("http://localhost:8000/add-class", {username: usernameText, userClasses: userClassesID})
+        .post("http://localhost:8000/add-class", {username: usernameText, userClasses: visibleClasses})
         .then((response)=>{
           console.log(response);
         })
