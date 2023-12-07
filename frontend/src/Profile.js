@@ -47,6 +47,8 @@ function ClassCodeBox({ addClass, classNames }) {
   );
 }
 
+
+
 function Notes() {
     return (
         <div className="my-notes">
@@ -68,7 +70,19 @@ function Profile() {
   const [classNames, setClassNames] = useState({});
   const [usernameText, setUsernameText] = useState("");
 
+  const [userFilesMetadata, setUserFilesMetadata] = useState([]);
 
+  useEffect(() => {
+    axios.post("http://localhost:8000/get-user-files", { userName: AuthService.getCurrentUser().accessToken })
+    .then(response => {
+        console.log(response.data);
+        setUserFilesMetadata(response.data);
+      }
+    )
+    .catch((err) =>{
+      console.log("Didn't get this user's files");
+    })
+  }, []);
 
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => {
@@ -192,9 +206,10 @@ function Profile() {
     );
 
     const saveClasses = () =>{
+      const visibleClasses = userClasses.filter((cls) => userClassesID.includes(cls));
       console.log(userClassesID);
       axios
-        .post("http://localhost:8000/add-class", {username: usernameText, userClasses: userClassesID})
+        .post("http://localhost:8000/add-class", {username: usernameText, userClasses: visibleClasses})
         .then((response)=>{
           console.log(response);
         })
@@ -227,6 +242,22 @@ function Profile() {
     const updatedClasses = userClasses.filter((cls) => cls !== removedClass);
     setUserClasses(updatedClasses);
     localStorage.setItem('userClasses', JSON.stringify(updatedClasses));
+
+    const currentUser = AuthService.getCurrentUser();
+    if (currentUser) {
+      const updatedUserClasses = updatedClasses.map((cls) => parseInt(cls));
+      axios
+        .post("http://localhost:8000/update-user-classes", {
+          username: currentUser.accessToken,
+          userClasses: updatedUserClasses,
+        })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error("Error updating user classes", error);
+        });
+    }
   };
 
   const classCodeBox = (
