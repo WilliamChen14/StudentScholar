@@ -159,7 +159,7 @@ const Home = () => {
                 </Col>
                 <Col>
                   <p1 className='member-description'>
-                  Hi there! My name is Pravir Chugh, and I am a second-year Computer Science Major at UCLA. 
+                  Hi there! My name is Pravir Chugh, and I am a second-year Computer Science Major at UCLA. In my spare time, you can find me catching up on the latest in Marvel, trying out new breakfast spots in Westwood, and kicking it at the soccer fields.
                   </p1>
                 </Col>
               </Row>
