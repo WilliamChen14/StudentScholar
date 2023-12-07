@@ -19,7 +19,7 @@ function ClassesBox({ title, description, image, link }) {
         <h2>{title}</h2>
         <p>{description}</p>
         <Link to={link} onClick={() => {
-            AuthService.setClassPage(title);
+            AuthService.setClassPage("1");
             alert("Switching to: " + title);
           }}>
           <button>Go to Notes</button>
