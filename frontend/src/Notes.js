@@ -20,15 +20,19 @@ const exampleMessages = [
 ];
 
 const examplePDFs = [
-  { name: "HW3", link: "https://www.math.cmu.edu/~sallison/concepts18/assignment1.pdf" },
-  { name: "HW4 Ans", link: "https://cse.iitkgp.ac.in/~palash/2018AlgoDesignAnalysis/assignment1.pdf" },
-  { name: "Logic Systems Lec3", link: "https://www.bu.edu/lernet/artemis/years/2011/slides/logicgates.pdf" },
-  { name: "Chess Lec2", link: "https://exeterchessclub.org.uk/chessx/pdf/TacticsInJuniorOpenings.pdf" },
-  { name: "Brain PDF", link: "https://catalog.ninds.nih.gov/sites/default/files/publications/know-your-brain-brain-basics.pdf" }
+  { name: "pythoncheatsheet.pdf", link: "https://www.math.cmu.edu/~sallison/concepts18/assignment1.pdf", description: "File 1" }, 
+  { name: "Week 2 Lisp Worksheet Solutions.pdf", link: "https://cse.iitkgp.ac.in/~palash/2018AlgoDesignAnalysis/assignment1.pdf", description: "File 2" },
+  { name: "Logic Systems Lec3", link: "https://www.bu.edu/lernet/artemis/years/2011/slides/logicgates.pdf", description: "File 3" },
+  { name: "Chess Lec2", link: "https://exeterchessclub.org.uk/chessx/pdf/TacticsInJuniorOpenings.pdf", description: "File 4" },
+  { name: "Brain PDF", link: "https://catalog.ninds.nih.gov/sites/default/files/publications/know-your-brain-brain-basics.pdf", description: "File 5" }
 ];
 
 const Notes = () => {
   const [curClass, setCurClass] = useState("");
+
+  const [fileMetadata, setFileMetadata] = useState([]);
+
+  const [fileDescription, setFileDescription] = useState("");
 
   function fetchFilesForClass(className) {
     // Encode the class name to ensure the URL is correctly formatted
@@ -41,8 +45,11 @@ const Notes = () => {
     axios.post(url, { className: className })
       .then(response => {
         console.log('Files:', response.data);
+        console.log(response.data[1].description);
         // Handle the response data (array of files)
-        
+
+        setFileMetadata(response.data);
+
       })
       .catch(error => {
         console.error('Error fetching files:', error);
@@ -107,6 +114,16 @@ const Notes = () => {
     setSelectedPDF(pdf);
     const displayedPDFDiv = document.querySelector('.displayedPDF');
 
+    for(let i = 0; i < fileMetadata.length; i++){
+      console.log("Class File's Name" + fileMetadata[i].fileName)
+      
+      if(fileMetadata[i].fileName == pdf.name){
+        console.log(fileMetadata[i].description);
+        setFileDescription(fileMetadata[i].description);
+        break;
+      }
+    }
+
     //if a pdf is chosen
     if (pdf) {
       //clear existing content in the displayedPDF div
@@ -156,7 +173,7 @@ const Notes = () => {
                 <p>
                   Like this Note in particular?
                 </p>
-                <button onClick={addToFavorites}>Add to Favorites</button>
+                <button onClick={addToFavorites}>{fileDescription}</button>
               </div>
 
             </div>
