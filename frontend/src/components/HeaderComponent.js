@@ -1,6 +1,7 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import ScholarShareLogo from '../assets/ScholarShareLogo.png'
 
 
 
@@ -49,6 +50,12 @@ function HeaderComponent() {
                 </Nav.Link>
               ))}
             </Nav>
+            <img
+              src={ScholarShareLogo}
+              alt="Logo"
+              className="ml-auto"
+              style={{ maxHeight: '35px' }} // Adjust the maxHeight as needed
+            />
           </Navbar.Collapse>
         </Container>
       </Navbar>
