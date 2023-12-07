@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+
 
 
 import './Profile.css';
@@ -47,16 +49,23 @@ function ClassCodeBox({ addClass, classNames }) {
   );
 }
 
+function Notes({buttonComponent, randomOnClickHandler}) {
 
-
-function Notes() {
     return (
         <div className="my-notes">
             <h2> My Pages/Favorited</h2>
+            <div className="profile-buttons">
+              {buttonComponent({ onClick: randomOnClickHandler, label: "Button 1" })}
+            </div>
         </div>
     );
 }
 
+function Button({onClick, label}) {
+  return (
+    <button onClick={onClick}>{label}</button>
+  );
+}
 function Profile() {
 
   const [user, setUser] = useState(null);
@@ -70,7 +79,13 @@ function Profile() {
   const [classNames, setClassNames] = useState({});
   const [usernameText, setUsernameText] = useState("");
 
+
+  const randomOnClickHandler = () => {
+    alert('Button clicked!'); 
+  };
+  
   const [userFilesMetadata, setUserFilesMetadata] = useState([]);
+
 
   useEffect(() => {
     axios.post("http://localhost:8000/get-user-files", { userName: AuthService.getCurrentUser().accessToken })
@@ -262,11 +277,21 @@ function Profile() {
 
   const classCodeBox = (
     <ClassCodeBox addClass={addClass} classNames={classNames} />
-  ); 
+  );
+
+  const noteButtonComponent = ({ onClick, label }) => (
+    <Link to="/Notes">
+      <Button onClick={onClick} label={label} />
+    </Link>
+  );
+
+  const notebuttons = (
+    <Notes buttonComponent={noteButtonComponent} randomOnClickHandler={randomOnClickHandler} />
+  );
 
   return (
     <div className="container">
-      {isLoggedIn && <Notes />}
+      {isLoggedIn && notebuttons}
       <div className="user-info">
         {isLoggedIn ? (
           <div>
