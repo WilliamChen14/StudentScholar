@@ -17,6 +17,20 @@ it starts the backend and frontend with simple shell commands but make sure to c
 you do need to make sure to change the permissions of the shell script to execute
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
