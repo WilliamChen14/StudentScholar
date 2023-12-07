@@ -1,11 +1,7 @@
-import ListGroup from "react-bootstrap/ListGroup";
-import { Stack } from "react-bootstrap";
-import { MouseEvent } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
-import { GoogleLogin } from '@react-oauth/google';
 
 
 
@@ -52,7 +48,6 @@ function HeaderComponent() {
                   {item}
                 </Nav.Link>
               ))}
-              <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
             </Nav>
           </Navbar.Collapse>
         </Container>
