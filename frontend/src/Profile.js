@@ -192,9 +192,10 @@ function Profile() {
     );
 
     const saveClasses = () =>{
+      const visibleClasses = userClasses.filter((cls) => userClassesID.includes(cls));
       console.log(userClassesID);
       axios
-        .post("http://localhost:8000/add-class", {username: usernameText, userClasses: userClassesID})
+        .post("http://localhost:8000/add-class", {username: usernameText, userClasses: visibleClasses})
         .then((response)=>{
           console.log(response);
         })
@@ -227,6 +228,22 @@ function Profile() {
     const updatedClasses = userClasses.filter((cls) => cls !== removedClass);
     setUserClasses(updatedClasses);
     localStorage.setItem('userClasses', JSON.stringify(updatedClasses));
+
+    const currentUser = AuthService.getCurrentUser();
+    if (currentUser) {
+      const updatedUserClasses = updatedClasses.map((cls) => parseInt(cls));
+      axios
+        .post("http://localhost:8000/update-user-classes", {
+          username: currentUser.accessToken,
+          userClasses: updatedUserClasses,
+        })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error("Error updating user classes", error);
+        });
+    }
   };
 
   const classCodeBox = (
