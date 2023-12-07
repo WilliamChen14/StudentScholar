@@ -8,7 +8,7 @@ import AuthService from './services/auth.service';
 import axios from 'axios';
 
 
-function ClassesBox({ title, description, image, link }) {
+function ClassesBox({ title, description, link }, {classID}) {
   return (
     <div className="class-box">
       <img
@@ -19,8 +19,7 @@ function ClassesBox({ title, description, image, link }) {
         <h2>{title}</h2>
         <p>{description}</p>
         <Link to={link} onClick={() => {
-            AuthService.setClassPage("1");
-            alert("Switching to: " + title);
+            AuthService.setClassPage(classID);
           }}>
           <button>Go to Notes</button>
         </Link>
@@ -34,6 +33,11 @@ function Classes() {
   const [addClassID, setAddClassID] = useState([]);
   const [addClassName, setAddClassName] = useState([]);
   const [addClassProfessor, setAddClassProfessor] = useState([]);
+
+  const [userClasses, setUserClasses] = useState([]);
+  const [userClassesData, setUserClassesData] = useState([]);
+  const [userClassesName, setUserClassesName] = useState([]);
+  const [userClassesDiscription, setUserClassesDiscription] = useState([]);
 
   const SubmitAddClass = (e) =>{
     e.preventDefault();
@@ -73,18 +77,73 @@ function Classes() {
   useEffect(
     ()=> {
       const user = AuthService.getCurrentUser();
-      console.log("opened classes");
-      console.log(user);
-
       if (user) {
         console.log(user)
+
+        axios
+          .post("http://localhost:8000/get-user-classes", { username: user.accessToken
+          })
+          .then(response => {
+            setUserClasses(response.data[0].userClasses)
+            let tempUserClassesName = userClassesName;
+            let tempUserClassesData = [];
+
+            for(let i = 0; i < response.data[0].userClasses.length; i++){
+              axios
+                .post("http://localhost:8000/get-class", { classID: response.data[0].userClasses[i]
+                })
+                .then(response=>{
+                  console.log(response);
+                  tempUserClassesData.push(response);
+                  tempUserClassesName.push(response.data.className);
+                })
+                .catch((err)=>{
+                  console.log(err);
+                })
+            }
+            console.log(tempUserClassesName);
+            setUserClassesName(tempUserClassesName);
+            setUserClassesData(tempUserClassesData);
+          })
       }
       else{
         //redirect page to home
       }
-      
+
       },[]
+
   );
+  
+  const ClassesBox = (description, classID, index) => {
+    let classNameFromID = userClassesName;
+    return (
+      <div className="class-box">
+        <img
+          src="https://c4.wallpaperflare.com/wallpaper/670/619/698/brain-computer-engineering-science-wallpaper-preview.jpg"
+          alt=""
+        />
+        <div className="class-details">
+          <h2>{userClassesName[index]}</h2>
+          <p>{description}</p>
+          <Link to={"/Notes"} onClick={() => {
+              AuthService.setClassPage(classID);
+            }}>
+            <button>Go to Notes</button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  const className = (classID) => {
+    axios
+      .post("http://localhost:8000/get-class", { classID: classID})
+      .then(response=>{
+        return response.data.className;
+      })
+
+    return "";
+  }
 
   const filteredClassData = searchQuery
     ? classData.filter((classItem) =>
@@ -133,9 +192,11 @@ function Classes() {
             >Submit</button>
         </form>
       </div>
-      {filteredClassData.length > 0 ? (
-        filteredClassData.map((classItem, index) => (
-          <ClassesBox key={index} {...classItem} />
+      {userClasses.length > 0 ? (
+        userClasses.map((classItem, index) => (
+          <>
+            {ClassesBox("Discription", classItem, index)}
+          </>
         ))
       ) : (
         <p>No classes found.</p>
