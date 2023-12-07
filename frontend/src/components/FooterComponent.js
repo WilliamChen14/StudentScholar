@@ -57,7 +57,7 @@ const FooterComponent = () => {
 					</Column>
 					<Column>
 						<Heading>Social Media</Heading>
-						<FooterLink href="https://eelslap.com/" target="_blank">
+						<FooterLink href="https://www.facebook.com/" target="_blank">
 							<i className="fab fa-facebook-f">
 								<span
 									style={{
@@ -68,7 +68,7 @@ const FooterComponent = () => {
 								</span>
 							</i>
 						</FooterLink>
-						<FooterLink href="https://www.instagram.com/mrbeast/" target="_blank">
+						<FooterLink href="https://www.instagram.com/" target="_blank">
 							<i className="fab fa-instagram">
 								<span
 									style={{
