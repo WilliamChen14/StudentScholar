@@ -363,3 +363,20 @@ mongoose.connection.once('open', () => {
     }
 
   });
+
+// Adding endpoints so that users can see the files that they've uploaded
+app.post('/get-user-files', async (req, res) => {
+
+console.log("Trying to get user's files -> Profile Page")
+const userName = req.body.userName;
+
+console.log(userName);
+
+try {
+    const files = await File.find({ uploaderName: userName });
+    res.json(files);
+} catch (err) {
+    console.error(err);
+    res.status(500).send('Error retrieving files');
+}
+});
