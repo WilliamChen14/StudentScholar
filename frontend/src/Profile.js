@@ -95,7 +95,7 @@ function Notes() {
 
     return (
         <div className="my-notes">
-            <h2> My Pages/Favorited</h2>
+            <p id="title"> My Pages/Favorited</p>
 
             {/* Metadataarray.map -> button component (onC) */}
 
@@ -318,7 +318,7 @@ function Profile() {
       <div className="user-info">
         {isLoggedIn ? (
           <div>
-            <h2>My Profile</h2>
+            <p id="title">My Profile</p>
             <p>Email Address: {usernameText} </p>
             <br />
             <button onClick={logout}>Log out</button>
@@ -331,7 +331,7 @@ function Profile() {
       {isLoggedIn && (
         <div className="my-classes">
           <div className="my-classes-container">
-            <h2>My Classes</h2>
+            <p id="title">My Classes</p>
             <ClassCodeBox addClass={addClass} />
             <ul className="class-list">
               {userClasses.map((cls, index) => (
