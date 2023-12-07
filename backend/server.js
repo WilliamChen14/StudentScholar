@@ -133,6 +133,28 @@ app.post('/get-class', async (req,res)=>{
     }
 })
 
+app.post('/get-class-discussion', async (req,res)=>{
+    const tempClass = await Class.findOne({classID: req.body.classID});
+    if(tempClass){
+        console.log(tempClass);
+        res.send(tempClass);
+    }
+    else{
+        console.log('Class Doesnt exist');
+    }
+})
+
+app.post('/update-class-discussion', async (req,res)=>{
+    try {
+        await Class.findOneAndUpdate({classID: req.body.classID}, {
+            classConversation: req.body.classConversation
+        })
+    }
+    catch(err){
+        console.log(err);
+    }
+})
+
 
 app.delete('/delete-users', async (req,res) =>{
 

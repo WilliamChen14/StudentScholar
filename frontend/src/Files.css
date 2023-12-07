@@ -1,6 +1,13 @@
 #title {
-    margin-top: 20px; 
-    margin-bottom: 50px;
+    margin: 0;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: xx-large;
+    font-weight: bold;
+    color: rgb(246, 120, 3);
+    background-color: rgb(69, 87, 141);
+    padding-top: 20px; 
+    padding-bottom: 50px;
+
 }
 
 .flex-container {
@@ -9,6 +16,7 @@
 
 #drop-area {
     flex: 1;
+    background: white;
     justify-content: space-between;
     align-items: center;
     border: 1px solid #ccc;
@@ -42,10 +50,11 @@
 }
 
 .my-files {
+    background-color: rgb(69, 87, 141);
     align-items: center;
     width: 100%;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .button {
@@ -67,6 +76,7 @@
 }
 
 .description-area {
+    background: white;
     flex: 1;
     align-items: center;
     justify-content: center;
@@ -78,6 +88,7 @@
 }
 
 .class-area {
+    background: white;
     flex: 1; 
     justify-content: center;
     width: 600px;
@@ -103,10 +114,6 @@
 #description {
     margin-top: 10px; 
     border: 2px solid lightblue;
-}
-
-.my-description {
-    margin-bottom: 1px; 
 }
 
 #dropdown-basic {

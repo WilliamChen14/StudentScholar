@@ -51,12 +51,13 @@ const Home = () => {
 
   return (
     <>
+    <div className="all">
     <div>
       <img src={FrontPagePhoto} className='image'></img>
     </div>
-    <Container className='body'>
+    <body>
       <Row className='row-container'>
-        <Col xs={7} className='about-us-container'>
+        <div className='about-us-container'>
           <div>
             <p1 className="about-us-header">About Us</p1>
           </div>
@@ -64,16 +65,21 @@ const Home = () => {
             <p1 className="update-date">Updated November 5th, 2023 by Bill Chen</p1>
           </div>
           <div>
-            <p1>
-              Our goal is to help students...
-              blah blah blah blah blah blah
-              There was a leak in the boat. Nobody had yet noticed it, and nobody would for the next couple of hours. This was a problem since the boat was heading out to sea and while the leak was quite small at the moment, it would be much larger when it was ultimately discovered. John had planned it exactly this way.
-            </p1>
+            <p className="about-us-description">
+            Welcome to our innovative web app platform designed exclusively for UCLA college students! 
+            We understand the challenges of academic life, and that's why we're excited to introduce a comprehensive solution 
+            that provides open-access resources and materials tailored to your study needs. Our goal is to allow
+            students to share and access lecture notes both for courses they are currently enrolled in and courses they plan
+            to take in the future.
+            <br></br>
+            <br></br>
+            Just simply set up a profile with your email, add classes via their respective class codes, and you are all set!
+            </p>
           </div>
           
         
-        </Col>
-        <Col className='meet-the-team-container'>
+        </div>
+        <div className='meet-the-team-container'>
           <div>
             <p1 className="meet-the-team-header">Meet the Team</p1>
             <Card className='team-member-card'>
@@ -90,8 +96,8 @@ const Home = () => {
                   </div>
                 </Col>
                 <Col>
-                  <p1>
-                  Hi, my name is Bill Chen. I am a Computer Science and Engineering Major at UCLA. In my free time I like to sweat against my friends in word hunt and expore town without a place in mind.
+                  <p1 className='member-description'>
+                  Hi, my name is Bill Chen. I am a Computer Science and Engineering Major at UCLA. My favorite animes are 'Domestic Girlfriend' and 'Girlfriend Girlfriends'. Aint no way you dissing me! In my free time I like to sweat against my friends in word hunt and expore town without a place in mind.
                   </p1>
                 </Col>
               </Row>
@@ -111,7 +117,7 @@ const Home = () => {
                   </div>
                 </Col>
                 <Col>
-                  <p1>
+                  <p1 className='member-description'>
                     Hello, my name is Philip Huang and I am from Seattle, Washington. I am a second-year student at UCLA majoring in Computer Engineering. I like to play basketball and tennis, listen to music, and watch anime.  
                   </p1>
                 </Col>
@@ -131,7 +137,7 @@ const Home = () => {
                   </div>
                 </Col>
                 <Col>
-                  <p1>
+                  <p1 className='member-description'>
                   Hey! I'm Brian. I'm a third year CS student and I hope you enjoy what we have to offer here! :D
                   </p1>
                 </Col>
@@ -153,7 +159,7 @@ const Home = () => {
                   </div>
                 </Col>
                 <Col>
-                  <p1>
+                  <p1 className='member-description'>
                   Hi there! My name is Pravir Chugh, and I am a second-year Computer Science Major at UCLA. 
                   </p1>
                 </Col>
@@ -174,16 +180,17 @@ const Home = () => {
                   </div>
                 </Col>
                 <Col>
-                  <p1>
+                  <p1 className='member-description'>
                     Hello! My name is Susana Sun, and I am a second-year Computer Science major at UCLA. In my free time, I love snowboarding and learning different foreign languages.
                   </p1>
                 </Col>
               </Row>
             </Card>
           </div>
-        </Col>
+        </div>
       </Row>
-    </Container>
+    </body>
+    </div>
     </>
   );
 };
