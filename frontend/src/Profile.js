@@ -24,6 +24,7 @@ function ClassCodeBox({ addClass, classNames }) {
             addClass(classCode, className);
           } else {
             console.log("Invalid class code");
+            alert('Class does not exist. Please enter a valid class code.');
           }
         })
         .catch(error => {
@@ -72,8 +73,8 @@ function Profile() {
     onSuccess: (codeResponse) => {
       setGoogleUser(codeResponse);
       setIsLoggedIn(true);
-      
-      //localStorage.setItem('user', JSON.stringify(codeResponse));
+      setUsernameText(codeResponse, accessToken);
+      localStorage.setItem('user', JSON.stringify(codeResponse));
     },
     onError: (error) => console.log('Login Failed:', error),
   });
@@ -84,8 +85,9 @@ function Profile() {
     setGoogleUser(null);
     setProfile({});
     setIsLoggedIn(false);
+    setUsernameText("");
     AuthService.logout();
-    localStorage.removeItem('userClasses');
+    //localStorage.removeItem('userClasses');
   };
 
 
