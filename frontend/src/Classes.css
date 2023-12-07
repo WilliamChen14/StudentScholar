@@ -10,13 +10,6 @@
     max-width: 300px;
     margin: 10px;
   }
-
-  .class-blocks {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    min-width: 0; 
-  }
   
   .class-details {
     margin-top: 12px;

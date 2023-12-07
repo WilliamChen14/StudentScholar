@@ -114,9 +114,9 @@ function Classes() {
         //redirect page to home
       }
     }, []
-  )
+  );
 
-  
+
   const ClassesBox = (description, classID, index) => {
     let classNameFromID = userClassesName;
     return (
@@ -167,19 +167,8 @@ function Classes() {
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
-        </div>
-        <div className="class-blocks">
-          {filteredClassData.length > 0 ? (
-            filteredClassData.map((classItem, index) => (
-              <ClassesBox key={index} {...classItem} />
-            ))
-          ) : (
-            <p>No classes found.</p>
-          )}
-        </div>
-        <div className="class-container">
           <form id="form">
-            <p className="create-class">Create a Class here</p>
+            <p>Create a Class here</p>
             <input
               type="text"
               className='search-input'
@@ -202,7 +191,7 @@ function Classes() {
               onChange={(e) => setAddClassProfessor(e.target.value)}
             />
             <button
-              style={{ marginTop: '10px', marginBottom: '30px' }} onClick={SubmitAddClass}
+              onClick={SubmitAddClass}
             >Submit</button>
           </form>
         </div>
@@ -216,6 +205,7 @@ function Classes() {
           <p>No classes found.</p>
         )}
       </Row>
+
     </div>
   );
 }
