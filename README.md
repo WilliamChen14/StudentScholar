@@ -14,8 +14,9 @@ Then, in the frontend terminal, also execute npm start. The web app should pop u
 
 # Shell Script
 it starts the backend and frontend with simple shell commands but make sure to check that both are running correctly.
-you do need to make sure to change the permissions of the shell script to execute
+you do need to make sure to change the permissions of the shell script to execute (chmod +x start.sh)
 
+The shell script is called start.sh. It exists in the project's root directory. To start it: ./start.sh!
 
 
 
