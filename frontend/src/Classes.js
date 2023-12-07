@@ -194,7 +194,7 @@ function Classes() {
         
         
         <form id="form">
-            <p>Create a Class here</p>
+            <p id="title"> Create a Class here</p>
             <input 
             type="text"
             className='search-input'

@@ -2,13 +2,31 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    background-color: rgb(69, 87, 141);
   }
+
+  #title {
+    margin: 0;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: xx-large;
+    font-weight: bold;
+    color: rgb(246, 120, 3);
+    background-color: rgb(69, 87, 141);
+    padding-top: 20px; 
+    padding-bottom: 50px;
+
+}
   
+  .class-header {
+    background-color: transparent;
+  }
+
   .class-box {
     border: 1px solid #ccc;
     padding: 16px;
     max-width: 300px;
     margin: 10px;
+    background-color: white;
   }
   
   .class-details {
