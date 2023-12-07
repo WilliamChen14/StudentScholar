@@ -49,23 +49,70 @@ function ClassCodeBox({ addClass, classNames }) {
   );
 }
 
-function Notes({buttonComponent, randomOnClickHandler}) {
+function Notes() {
+
+  const [userFilesMetadata, setUserFilesMetadata] = useState([]);
+
+  useEffect(() => {
+    axios.post("http://localhost:8000/get-user-files", { userName: AuthService.getCurrentUser().accessToken })
+    .then(response => {
+        console.log(response.data);
+        setUserFilesMetadata(response.data);
+      }
+    )
+    .catch((err) =>{
+      console.log("Didn't get this user's files");
+    })
+  }, []);
+
+  function onButtonClick(pdf_name) {
+
+    console.log("File name we're searching for: " + pdf_name);
+    axios.post("http://localhost:8000/get-file-contents", { fileName: pdf_name }, {responseType: 'blob'})
+      .then(response => {
+
+ 
+        const blob = new Blob([response.data], { type: 'application/pdf' }); // Ensure correct MIME type
+        const downloadUrl = window.URL.createObjectURL(blob);
+
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.setAttribute('download', 'downloadedfile.pdf'); // Set a filename
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(downloadUrl);
+        
+        
+
+        console.log('File Data Received');
+       
+      })
+      .catch(error => {
+        console.error('Did not get file data', error);
+      });
+  };
 
     return (
         <div className="my-notes">
             <h2> My Pages/Favorited</h2>
-            <div className="profile-buttons">
-              {buttonComponent({ onClick: randomOnClickHandler, label: "Button 1" })}
+
+            {/* Metadataarray.map -> button component (onC) */}
+
+						<div className="profile-buttons">
+
+              {userFilesMetadata.map((eachFileMetadata) => (
+                      <div className="pdf-link" onClick={() => onButtonClick(eachFileMetadata.fileName)}>
+                        {eachFileMetadata.fileName}
+                      </div>
+              ))}
+              
             </div>
         </div>
     );
 }
 
-function Button({onClick, label}) {
-  return (
-    <button onClick={onClick}>{label}</button>
-  );
-}
+
 function Profile() {
 
   const [user, setUser] = useState(null);
@@ -80,24 +127,7 @@ function Profile() {
   const [usernameText, setUsernameText] = useState("");
 
 
-  const randomOnClickHandler = () => {
-    alert('Button clicked!'); 
-  };
   
-  const [userFilesMetadata, setUserFilesMetadata] = useState([]);
-
-
-  useEffect(() => {
-    axios.post("http://localhost:8000/get-user-files", { userName: AuthService.getCurrentUser().accessToken })
-    .then(response => {
-        console.log(response.data);
-        setUserFilesMetadata(response.data);
-      }
-    )
-    .catch((err) =>{
-      console.log("Didn't get this user's files");
-    })
-  }, []);
 
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => {
@@ -279,19 +309,12 @@ function Profile() {
     <ClassCodeBox addClass={addClass} classNames={classNames} />
   );
 
-  const noteButtonComponent = ({ onClick, label }) => (
-    <Link to="/Notes">
-      <Button onClick={onClick} label={label} />
-    </Link>
-  );
-
-  const notebuttons = (
-    <Notes buttonComponent={noteButtonComponent} randomOnClickHandler={randomOnClickHandler} />
-  );
-
+ 
   return (
     <div className="container">
-      {isLoggedIn && notebuttons}
+      {isLoggedIn && 
+        <Notes></Notes>
+      }
       <div className="user-info">
         {isLoggedIn ? (
           <div>
