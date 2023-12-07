@@ -47,7 +47,7 @@ function Files() {
     const description = document.getElementById("description")
     const className = document.getElementById("dropdown-basic");
     const fileSelected = document.getElementById("fileElem");
-    const uploaderName = "Pravir" // hardcoded
+    const uploaderName = AuthService.getCurrentUser().accessToken; // hardcoded
     const formData = new FormData();
 
     formData.append("description", description.value);
