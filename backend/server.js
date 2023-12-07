@@ -133,6 +133,28 @@ app.post('/get-class', async (req,res)=>{
     }
 })
 
+app.post('/get-class-discussion', async (req,res)=>{
+    const tempClass = await Class.findOne({classID: req.body.classID});
+    if(tempClass){
+        console.log(tempClass);
+        res.send(tempClass);
+    }
+    else{
+        console.log('Class Doesnt exist');
+    }
+})
+
+app.post('/update-class-discussion', async (req,res)=>{
+    try {
+        await Class.findOneAndUpdate({classID: req.body.classID}, {
+            classConversation: req.body.classConversation
+        })
+    }
+    catch(err){
+        console.log(err);
+    }
+})
+
 
 app.delete('/delete-users', async (req,res) =>{
 
@@ -315,3 +337,31 @@ app.post('/get-class-files', async (req, res) => {
 //   }
 // }
 
+let gfs_getFiles;
+mongoose.connection.once('open', () => {
+    gfs_getFiles = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+      bucketName: 'files'
+    });
+  });
+
+  app.post('/get-file-contents', async (req, res) => {
+
+    console.log("TRYING TO GET FILE CONTENTS!!!");
+    const fileName = req.body.fileName;
+    console.log("For this filename: " + fileName);
+
+    try {
+        const files = await gfs_getFiles.find({ filename: fileName }).toArray();
+
+        if (!files || files.length === 0) {
+            return res.status(404).send('File not found');
+        }
+
+        const readStream = gfs_getFiles.openDownloadStreamByName(fileName);
+        readStream.pipe(res);
+    } catch (err) {
+        console.error('Error finding file:', err);
+        res.status(500).send('Internal server error');
+    }
+
+  });

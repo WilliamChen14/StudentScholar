@@ -29,6 +29,13 @@ const examplePDFs = [
 
 const Notes = () => {
   const [curClass, setCurClass] = useState("");
+  const [curClassName, setCurClassName] = useState("");
+  
+  const [activeSection, setActiveSection] = useState("notesPDFs");
+  const [selectedPDF, setSelectedPDF] = useState(null);
+
+  const [newMessage, setNewMessage] = useState([]);
+  const [classMessages, setClassMessages] = useState([]);
 
   const [fileMetadata, setFileMetadata] = useState([]);
 
@@ -40,6 +47,7 @@ const Notes = () => {
   
     // Construct the URL with the encoded class name
     const url = `http://localhost:8000/get-class-files`;
+    
     console.log(url);
     // Make the GET request
     axios.post(url, { className: className })
@@ -57,9 +65,19 @@ const Notes = () => {
       });
   }
 
+  const submitNewComment = () => {
+    classMessages.push(newMessage);
+    axios
+      .post("http://localhost:8000/update-class-discussion", { classID: AuthService.getClassPage(), classConversation: classMessages})
+        .then(response =>{
+        })
+
+    setNewMessage("");
+  }
+
   useEffect(
-      ()=> {
-        const user = AuthService.getCurrentUser();
+      () => {
+      const user = AuthService.getCurrentUser();
 
         if (user) {
           console.log(user)
@@ -67,18 +85,30 @@ const Notes = () => {
         else{
           //redirect page to home
         }
-      },[]
-  );
 
-  useEffect(
-    () => {
-      const currentPage = AuthService.getClassPage();
 
+      const currentPageID = AuthService.getClassPage();
       
+      axios
+      .post("http://localhost:8000/get-class", { classID: currentPageID})
+        .then(response =>{
+            console.log(response.data.className);
+            setCurClassName(response.data.className);
+            setClassMessages(response.data.classConversation);
+            if(response.data.className){
+              setCurClass(response.data.className);
+              fetchFilesForClass(response.data.classID);
+            }
+        })
+        .catch((err) =>{
+          console.log("Update didn't carry over - for class name");
+        })
 
-      if(currentPage){
-        console.log(currentPage);
-        setCurClass(currentPage);
+      /*
+
+      if(curClassName){
+        console.log(curClassName);
+        setCurClass(curClassName);
 
         // let newString = "";
 
@@ -90,12 +120,13 @@ const Notes = () => {
         //   }
         // }
 
-        fetchFilesForClass(currentPage);
+        fetchFilesForClass(curClassName);
 
       } else {
         // did not update
         console.log("Update didn't carry over - for class name")
-      }
+        
+      }*/
 
       
       
@@ -104,13 +135,43 @@ const Notes = () => {
 
   );
 
-  const [activeSection, setActiveSection] = useState("notesPDFs");
-  const [selectedPDF, setSelectedPDF] = useState(null);
+  
+
   const switchSection = (section) => {
     setActiveSection(section);
   };
 
   const openPDFInFrame = (pdf) => {
+
+    console.log("File name we're searching for: " + pdf.name);
+    axios.post("http://localhost:8000/get-file-contents", { fileName: pdf.name }, {responseType: 'blob'})
+      .then(response => {
+
+ 
+        const blob = new Blob([response.data], { type: 'application/pdf' }); // Ensure correct MIME type
+        const downloadUrl = window.URL.createObjectURL(blob);
+
+        const iframe = document.getElementById('mainIFrame');
+        iframe.src = downloadUrl;
+
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.setAttribute('download', 'downloadedfile.pdf'); // Set a filename
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(downloadUrl);
+        
+        
+
+        console.log('File Data Received, how to display?: ', response.data);
+       
+      })
+      .catch(error => {
+        console.error('Did not get file data', error);
+      });
+    
+
     setSelectedPDF(pdf);
     const displayedPDFDiv = document.querySelector('.displayedPDF');
 
@@ -125,18 +186,18 @@ const Notes = () => {
     }
 
     //if a pdf is chosen
-    if (pdf) {
-      //clear existing content in the displayedPDF div
-      displayedPDFDiv.innerHTML = '';
-      //create a new iframe element
-      const pdfIframe = document.createElement('iframe');
-      pdfIframe.title = 'Selected PDF';
-      pdfIframe.src = pdf.link;
-      pdfIframe.width = '100%';
-      pdfIframe.height = '500px';
-      //Append the iframe to the displayedPDF div
-      displayedPDFDiv.appendChild(pdfIframe);
-    }
+    // if (pdf) {
+    //   //clear existing content in the displayedPDF div
+    //   displayedPDFDiv.innerHTML = '';
+    //   //create a new iframe element
+    //   const pdfIframe = document.createElement('iframe');
+    //   pdfIframe.title = 'Selected PDF';
+    //   pdfIframe.src = pdf.link;
+    //   pdfIframe.width = '100%';
+    //   pdfIframe.height = '500px';
+    //   //Append the iframe to the displayedPDF div
+    //   displayedPDFDiv.appendChild(pdfIframe);
+    // }
 
     // else {
     // // If no PDF is selected, display a default message //IDK WHY THIS DOESNT WORK
@@ -165,6 +226,7 @@ const Notes = () => {
                     src={selectedPDF.link}
                     width="100%"
                     height="500px"
+                    id="mainIFrame"
                   />
                 )}
               </div>
@@ -204,11 +266,21 @@ const Notes = () => {
                 </div>
               ) : (
                 <div className="discussion">
-                  {exampleMessages.map((message, index) => (
+                  {classMessages.map((message, index) => (
                     <div key={index} className="messageBox">
                       {message}
                     </div>
                   ))}
+
+                  <div>
+                  <input
+                    type="text"
+                    placeholder="Type Here"
+                    value={newMessage}
+                    onChange={(e)=> setNewMessage(e.target.value)}
+                  />
+                  <button onClick={submitNewComment}>comment</button>
+                  </div>
                 </div>
               )}
             </div>
