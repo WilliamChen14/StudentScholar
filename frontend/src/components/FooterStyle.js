@@ -24,10 +24,11 @@ export const FooterContainer = styled.div`
 `;
 
 export const Column = styled.div`
+	width: 500px;
 	display: flex;
 	flex-direction: column;
 	text-align: left;
-	margin-left: 60px;
+	margin-left: 170px;
 `;
 
 export const Row = styled.div`

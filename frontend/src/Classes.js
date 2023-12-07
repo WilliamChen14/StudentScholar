@@ -8,7 +8,7 @@ import AuthService from './services/auth.service';
 import axios from 'axios';
 
 
-function ClassesBox({ title, description, link }, {classID}) {
+function ClassesBox({ title, description, link }, { classID }) {
   return (
     <div className="class-box">
       <img
@@ -19,8 +19,8 @@ function ClassesBox({ title, description, link }, {classID}) {
         <h2>{title}</h2>
         <p>{description}</p>
         <Link to={link} onClick={() => {
-            AuthService.setClassPage(classID);
-          }}>
+          AuthService.setClassPage(classID);
+        }}>
           <button>Go to Notes</button>
         </Link>
       </div>
@@ -39,18 +39,20 @@ function Classes() {
   const [userClassesName, setUserClassesName] = useState([]);
   const [userClassesDiscription, setUserClassesDiscription] = useState([]);
 
-  const SubmitAddClass = (e) =>{
+  const SubmitAddClass = (e) => {
+
     e.preventDefault();
 
     console.log(addClassID);
     console.log(addClassName);
 
     axios
-        .post("http://localhost:8000/create-class", { classID: addClassID, className: addClassName, classProf: addClassProfessor
-        })
-        .then(response => {
-            console.log("shouldve added unless code already exists");
-        });
+      .post("http://localhost:8000/create-class", {
+        classID: addClassID, className: addClassName, classProf: addClassProfessor
+      })
+      .then(response => {
+        console.log("shouldve added unless code already exists");
+      });
   }
 
   const classData = [
@@ -75,29 +77,31 @@ function Classes() {
   ];
 
   useEffect(
-    ()=> {
+    () => {
       const user = AuthService.getCurrentUser();
       if (user) {
         console.log(user)
 
         axios
-          .post("http://localhost:8000/get-user-classes", { username: user.accessToken
+          .post("http://localhost:8000/get-user-classes", {
+            username: user.accessToken
           })
           .then(response => {
             setUserClasses(response.data[0].userClasses)
             let tempUserClassesName = userClassesName;
             let tempUserClassesData = [];
 
-            for(let i = 0; i < response.data[0].userClasses.length; i++){
+            for (let i = 0; i < response.data[0].userClasses.length; i++) {
               axios
-                .post("http://localhost:8000/get-class", { classID: response.data[0].userClasses[i]
+                .post("http://localhost:8000/get-class", {
+                  classID: response.data[0].userClasses[i]
                 })
-                .then(response=>{
+                .then(response => {
                   console.log(response);
                   tempUserClassesData.push(response);
                   tempUserClassesName.push(response.data.className);
                 })
-                .catch((err)=>{
+                .catch((err) => {
                   console.log(err);
                 })
             }
@@ -106,13 +110,12 @@ function Classes() {
             setUserClassesData(tempUserClassesData);
           })
       }
-      else{
+      else {
         //redirect page to home
       }
+    }, []
+  )
 
-      },[]
-
-  );
   
   const ClassesBox = (description, classID, index) => {
     let classNameFromID = userClassesName;
@@ -126,8 +129,8 @@ function Classes() {
           <h2>{userClassesName[index]}</h2>
           <p>{description}</p>
           <Link to={"/Notes"} onClick={() => {
-              AuthService.setClassPage(classID);
-            }}>
+            AuthService.setClassPage(classID);
+          }}>
             <button>Go to Notes</button>
           </Link>
         </div>
@@ -137,8 +140,8 @@ function Classes() {
 
   const className = (classID) => {
     axios
-      .post("http://localhost:8000/get-class", { classID: classID})
-      .then(response=>{
+      .post("http://localhost:8000/get-class", { classID: classID })
+      .then(response => {
         return response.data.className;
       })
 
@@ -147,62 +150,72 @@ function Classes() {
 
   const filteredClassData = searchQuery
     ? classData.filter((classItem) =>
-        classItem.title.toLowerCase().includes(searchQuery.toLowerCase())
-      )
+      classItem.title.toLowerCase().includes(searchQuery.toLowerCase())
+    )
     : classData;
 
   return (
     <div className="class-container">
       <Row>
-      <div className="search-wrapper">
-        <div className="input-holder">
-          <input
-            type="text"
-            className="search-input"
-            placeholder="Type to search"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
+        <div className="search-wrapper">
+          <div className="input-holder">
+            <input
+              type="text"
+              className="search-input"
+              placeholder="Type to search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
         </div>
-        <form id="form">
-            <p>Create a Class here</p>
-            <input 
-            type="text"
-            className='search-input'
-            placeholder="New Class Name"
-            value={addClassName}
-            onChange={(e)=> setAddClassName(e.target.value)}
+        <div className="class-blocks">
+          {filteredClassData.length > 0 ? (
+            filteredClassData.map((classItem, index) => (
+              <ClassesBox key={index} {...classItem} />
+            ))
+          ) : (
+            <p>No classes found.</p>
+          )}
+        </div>
+        <div className="class-container">
+          <form id="form">
+            <p className="create-class">Create a Class here</p>
+            <input
+              type="text"
+              className='search-input'
+              placeholder="New Class Name"
+              value={addClassName}
+              onChange={(e) => setAddClassName(e.target.value)}
             />
-            <input 
-            type="number"
-            className='search-input'
-            placeholder="New Class ID"
-            value={addClassID}
-            onChange={(e)=> setAddClassID(e.target.value)}
+            <input
+              type="number"
+              className='search-input'
+              placeholder="New Class ID"
+              value={addClassID}
+              onChange={(e) => setAddClassID(e.target.value)}
             />
-            <input 
-            type="text"
-            className='search-input'
-            placeholder="Classes Professor"
-            value={addClassProfessor}
-            onChange={(e)=> setAddClassProfessor(e.target.value)}
+            <input
+              type="text"
+              className='search-input'
+              placeholder="Classes Professor"
+              value={addClassProfessor}
+              onChange={(e) => setAddClassProfessor(e.target.value)}
             />
             <button
-              onClick={SubmitAddClass}
+              style={{ marginTop: '10px', marginBottom: '30px' }} onClick={SubmitAddClass}
             >Submit</button>
-        </form>
-      </div>
-      {userClasses.length > 0 ? (
-        userClasses.map((classItem, index) => (
-          <>
-            {ClassesBox("Discription", classItem, index)}
-          </>
-        ))
-      ) : (
-        <p>No classes found.</p>
-      )}
+          </form>
+        </div>
+        {userClasses.length > 0 ? (
+          userClasses.map((classItem, index) => (
+            <>
+              {ClassesBox("Discription", classItem, index)}
+            </>
+          ))
+        ) : (
+          <p>No classes found.</p>
+        )}
       </Row>
-
     </div>
   );
 }
