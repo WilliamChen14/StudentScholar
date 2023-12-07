@@ -1,5 +1,6 @@
 // Filename - components/Footer.js
 
+import ScholarShareLogo from '../assets/ScholarShareLogo.png'
 import React from "react";
 import {
 	Box,
@@ -13,14 +14,18 @@ import {
 const FooterComponent = () => {
 	return (
 		<Box>
+			<img src={ScholarShareLogo} style={{
+				height: "20%",
+				width: "20%",
+			}}></img>
 			<h1
 				style={{
-					color: "green",
+					color: "white",
 					textAlign: "center",
 					marginTop: "10px",
 				}}
 			>
-				A Computer Science Portal for Geeks!
+				StudentScholar
 			</h1>
 			<FooterContainer>
 				<Row>
