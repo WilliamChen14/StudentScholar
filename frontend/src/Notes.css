@@ -10,8 +10,9 @@
     display: flex;
     flex-direction: column;
     flex: 5;
-    margin: 15px;
+    margin: 10px;
     border: 1px solid #000000;
+    overflow: auto;
 }
 .rightHalf {
     display: flex;
@@ -24,53 +25,38 @@
 
 /* Left Half */
 .displayedPDF {
-  flex: 5;
-  border: 1px solid #000000;
-  overflow: hidden;
-  background-color: #a0a0a0;
-  /* display: flex; # fixes double up problem*/ 
-  align-items: center;
-  justify-content: center; /* Center content vertically and horizontally */
+    flex: 5;
+    border: 1px solid #000000;
+    overflow: hidden;
+    background-color: #a0a0a0;
+    /* display: flex; # fixes double up problem*/ 
+    align-items: center;
+    justify-content: center; /* Center content vertically and horizontally */
 }
-.default-message {
-  padding: 10px;
-  border: 1px solid #ccc;
-  text-align: center;
-  font-style: italic;
-  color: #000000;
-}
-/* .displayedPDF img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-} */
-.favoriteSection {
+.description {
+    display: flex;
+    flex-direction: column;
     flex: 1;
     border: 1px solid #000;
     align-items: left;
     justify-content: left;
+    overflow: auto;
 } 
-.favoriteSection p {
-  font-size: 18px;
-  font-weight: normal;
-  margin-bottom: 10px;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-
+.description p {
+    font-size: 18px;
+    font-weight: normal;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
-
-.favoriteSection button {
-  background-color: #347121;
-  color: #fff;
-  padding: 8px 12px;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-
+.descriptionHeader {
+    flex: 1;
+    background-color: #f4f4f4;
+    align-items: center;
+    justify-content: center;
 }
+.descriptionText {
+    flex: 5;
+    overflow: auto;
 
-.favoriteSection button:hover {
-  background-color: #129a26;
 }
 /* Right Half
   /* Header */
@@ -78,7 +64,8 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    background-color: #50d464;
+    background-color: #f8e7b7;
+    border: 1px solid #000;
     padding: 10px;
     color: #fff;
   }
@@ -89,12 +76,12 @@
     border: 1px solid #fff;
     border-radius: 4px;
     margin-right: 10px;
-    background-color: #347121;
+    background-color: #c7852f;
     color: #fff;
   }
   
   .section-switch:hover {
-    background-color: #129a26;
+    background-color: #b76b00;
     color: #ffffff;
   }
 
@@ -114,25 +101,36 @@
 
 }
 .pdf-link:hover {
-  background-color: #f0f0f0; /* Add a background color on hover if desired */
+    background-color: #f0f0f0; /* Add a background color on hover if desired */
 }
-  /* Discussion */
-  .discussion {
+/* Discussion */
+.discussion {
     display: flex;
     flex-direction: column;
-  }
-  .messageBox {
+    overflow-y: auto;
+}
+.allMessages {
+    display: flex;
+    flex-direction: column;
+    flex: 15;
+    overflow-y: auto;
+}
+.messageBox {
     padding: 10px;
     border: 1px solid #ccc;
     text-align: left;
     font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.messageBox:nth-of-type(even) {
+    background-color: #f8ebbadf; /* Adjust the gray color as needed */
+}
 
-  }
-  .messageBox:nth-of-type(even) {
-    background-color: #acf6a3df; /* Adjust the gray color as needed */
-  }
-  
-  /* Apply white background to odd-indexed message boxes */
-  .messageBox:nth-of-type(odd) {
+/* Apply white background to odd-indexed message boxes */
+.messageBox:nth-of-type(odd) {
     background-color: #ffffff; /* Adjust the white color as needed */
-  }
+}
+.insertTextBox {
+    display: flex;
+    flex: 1;
+    padding: 10px;
+}

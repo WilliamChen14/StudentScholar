@@ -39,6 +39,8 @@ function Classes() {
   const [userClassesName, setUserClassesName] = useState([]);
   const [userClassesDiscription, setUserClassesDiscription] = useState([]);
 
+  const [userClassesDataRender, setUserClassesDataRender] = useState([]);
+
   const SubmitAddClass = (e) =>{
     e.preventDefault();
 
@@ -77,6 +79,7 @@ function Classes() {
   useEffect(
     ()=> {
       const user = AuthService.getCurrentUser();
+      let finalCheck = [];
       if (user) {
         console.log(user)
 
@@ -84,8 +87,8 @@ function Classes() {
           .post("http://localhost:8000/get-user-classes", { username: user.accessToken
           })
           .then(response => {
-            setUserClasses(response.data[0].userClasses)
             let tempUserClassesName = userClassesName;
+
             let tempUserClassesData = [];
 
             for(let i = 0; i < response.data[0].userClasses.length; i++){
@@ -94,28 +97,52 @@ function Classes() {
                 })
                 .then(response=>{
                   console.log(response);
-                  tempUserClassesData.push(response);
                   tempUserClassesName.push(response.data.className);
+                  /*
+                  if(!tempUserClassesData.includes(
+                    {
+                      classID: response.data.classID,
+                      className: response.data.className}
+                      ))
+                  {
+                      tempUserClassesData.push({
+                        classID: response.data.classID,
+                        className: response.data.className
+                    });
+                  }*/
+                  setUserClassesName(tempUserClassesName);
+                  setUserClassesData(tempUserClassesData);
+
                 })
                 .catch((err)=>{
                   console.log(err);
                 })
-            }
-            console.log(tempUserClassesName);
-            setUserClassesName(tempUserClassesName);
-            setUserClassesData(tempUserClassesData);
+          }
+            finalCheck = tempUserClassesData;
+            console.log(tempUserClassesData);
+            setUserClasses(response.data[0].userClasses)
+
+            
           })
       }
       else{
         //redirect page to home
       }
+      setUserClassesData(finalCheck);
+      const finalfinal = async () => {
+        await setUserClassesData(finalCheck);
+      }
+      setUserClassesDataRender(userClassesData);
+      
+
+
 
       },[]
 
   );
+
   
-  const ClassesBox = (description, classID, index) => {
-    let classNameFromID = userClassesName;
+  const ClassesBox = (title, id) => {
     return (
       <div className="class-box">
         <img
@@ -123,10 +150,10 @@ function Classes() {
           alt=""
         />
         <div className="class-details">
-          <h2>{userClassesName[index]}</h2>
-          <p>{description}</p>
+          <h2>{title}</h2>
+          <p>{"description"}</p>
           <Link to={"/Notes"} onClick={() => {
-              AuthService.setClassPage(classID);
+              AuthService.setClassPage(id);
             }}>
             <button>Go to Notes</button>
           </Link>
@@ -150,12 +177,7 @@ function Classes() {
         classItem.title.toLowerCase().includes(searchQuery.toLowerCase())
       )
     : classData;
-
-  return (
-    <div className="class-container">
-      <Row>
-      <div className="search-wrapper">
-        <div className="input-holder">
+  /*<div className="input-holder">
           <input
             type="text"
             className="search-input"
@@ -164,6 +186,13 @@ function Classes() {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
+      */
+  return (
+    <div className="class-container">
+      <Row>
+      <div className="search-wrapper">
+        
+        
         <form id="form">
             <p>Create a Class here</p>
             <input 
@@ -195,12 +224,16 @@ function Classes() {
       {userClasses.length > 0 ? (
         userClasses.map((classItem, index) => (
           <>
-            {ClassesBox("Discription", classItem, index)}
+            {ClassesBox(userClassesName[index], userClasses[index])}
           </>
         ))
+        
       ) : (
-        <p>No classes found.</p>
+        <>
+          <p>No classes found.</p>
+        </>
       )}
+
       </Row>
 
     </div>

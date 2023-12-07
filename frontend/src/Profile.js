@@ -50,6 +50,7 @@ function ClassCodeBox({ addClass, classNames }) {
 }
 
 function Notes({buttonComponent, randomOnClickHandler}) {
+
     return (
         <div className="my-notes">
             <h2> My Pages/Favorited</h2>
@@ -78,10 +79,25 @@ function Profile() {
   const [classNames, setClassNames] = useState({});
   const [usernameText, setUsernameText] = useState("");
 
+
   const randomOnClickHandler = () => {
     alert('Button clicked!'); 
   };
+  
+  const [userFilesMetadata, setUserFilesMetadata] = useState([]);
 
+
+  useEffect(() => {
+    axios.post("http://localhost:8000/get-user-files", { userName: AuthService.getCurrentUser().accessToken })
+    .then(response => {
+        console.log(response.data);
+        setUserFilesMetadata(response.data);
+      }
+    )
+    .catch((err) =>{
+      console.log("Didn't get this user's files");
+    })
+  }, []);
 
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => {
