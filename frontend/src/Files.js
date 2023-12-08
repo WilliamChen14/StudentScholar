@@ -55,7 +55,7 @@ function Files() {
     const formData = new FormData();
 
     formData.append("description", description.value);
-    formData.append("className", className);
+    formData.append("className", className.value);
     formData.append("uploaderName", uploaderName);
     formData.append("file", fileSelected.files[0]);
     alert(fileSelected.files[0].name);
